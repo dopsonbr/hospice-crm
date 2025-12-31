@@ -38,9 +38,31 @@ if ! command -v gh &> /dev/null; then
   fi
 fi
 
-# Verify GitHub CLI is available
+# Verify GitHub CLI is available and has repo access
 if command -v gh &> /dev/null; then
   echo "GitHub CLI version: $(gh --version | head -n1)"
+
+  # Check if GH_TOKEN is set
+  if [ -z "$GH_TOKEN" ] && [ -z "$GITHUB_TOKEN" ]; then
+    echo "Warning: GH_TOKEN environment variable is not set."
+    echo "Set GH_TOKEN with a personal access token to enable GitHub CLI access."
+  else
+    # Verify repo access
+    if [ -d ".git" ]; then
+      REPO_URL=$(git config --get remote.origin.url 2>/dev/null)
+      if [ -n "$REPO_URL" ]; then
+        echo "Verifying GitHub CLI access to repository..."
+        if gh repo view --json name -q '.name' &> /dev/null; then
+          REPO_NAME=$(gh repo view --json nameWithOwner -q '.nameWithOwner')
+          echo "GitHub CLI authenticated and has access to: $REPO_NAME"
+        else
+          echo "Error: GitHub CLI cannot access this repository."
+          echo "Please ensure your GH_TOKEN has the 'repo' scope."
+          exit 1
+        fi
+      fi
+    fi
+  fi
 fi
 
 echo "Environment setup complete!"
