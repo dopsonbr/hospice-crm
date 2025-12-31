@@ -1,4 +1,5 @@
-import { getOpenTasks, TASK_TYPES, PRIORITIES, completeTask, reopenTask } from "@/lib/actions/tasks"
+import { getOpenTasks, completeTask } from "@/lib/actions/tasks"
+import { TASK_TYPES, PRIORITIES } from "@/lib/constants"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"

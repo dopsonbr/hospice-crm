@@ -12,21 +12,6 @@ export type TaskWithRelations = Task & {
   deal: { id: string; name: string } | null
 }
 
-export const TASK_TYPES = [
-  { value: "call", label: "Call" },
-  { value: "email", label: "Email" },
-  { value: "meeting", label: "Meeting" },
-  { value: "demo", label: "Demo" },
-  { value: "follow_up", label: "Follow-up" },
-  { value: "other", label: "Other" },
-] as const
-
-export const PRIORITIES = [
-  { value: "high", label: "High", color: "destructive" },
-  { value: "medium", label: "Medium", color: "warning" },
-  { value: "low", label: "Low", color: "secondary" },
-] as const
-
 export async function getTasks(): Promise<TaskWithRelations[]> {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()

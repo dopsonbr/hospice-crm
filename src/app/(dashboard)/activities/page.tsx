@@ -1,4 +1,5 @@
-import { getActivities, ACTIVITY_TYPES, OUTCOMES } from "@/lib/actions/activities"
+import { getActivities } from "@/lib/actions/activities"
+import { ACTIVITY_TYPES, OUTCOMES } from "@/lib/constants"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"

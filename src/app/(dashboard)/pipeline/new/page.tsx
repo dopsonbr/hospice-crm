@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
-import { createDeal, DEAL_STAGES } from "@/lib/actions/deals"
+import { createDeal } from "@/lib/actions/deals"
+import { DEAL_STAGES } from "@/lib/constants"
 import { getFacilities } from "@/lib/actions/facilities"
 import { getContacts } from "@/lib/actions/contacts"
 import { Button } from "@/components/ui/button"

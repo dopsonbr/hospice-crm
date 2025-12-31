@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
-import { getDeal, deleteDeal, DEAL_STAGES } from "@/lib/actions/deals"
+import { getDeal, deleteDeal } from "@/lib/actions/deals"
+import { DEAL_STAGES } from "@/lib/constants"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"

@@ -12,21 +12,6 @@ export type ActivityWithRelations = Activity & {
   deal: { id: string; name: string } | null
 }
 
-export const ACTIVITY_TYPES = [
-  { value: "call", label: "Call" },
-  { value: "email", label: "Email" },
-  { value: "meeting", label: "Meeting" },
-  { value: "demo", label: "Demo" },
-  { value: "follow_up", label: "Follow-up" },
-  { value: "other", label: "Other" },
-] as const
-
-export const OUTCOMES = [
-  { value: "positive", label: "Positive", color: "success" },
-  { value: "neutral", label: "Neutral", color: "secondary" },
-  { value: "negative", label: "Negative", color: "destructive" },
-] as const
-
 export async function getActivities(limit?: number): Promise<ActivityWithRelations[]> {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()

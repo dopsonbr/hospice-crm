@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
-import { createTask, TASK_TYPES, PRIORITIES } from "@/lib/actions/tasks"
+import { createTask } from "@/lib/actions/tasks"
+import { TASK_TYPES, PRIORITIES } from "@/lib/constants"
 import { getFacilities } from "@/lib/actions/facilities"
 import { getContacts } from "@/lib/actions/contacts"
 import { getActiveDeals } from "@/lib/actions/deals"

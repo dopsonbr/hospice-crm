@@ -4,7 +4,8 @@ import { useState } from "react"
 import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { updateDealStage, type DealWithRelations, type DealStage } from "@/lib/actions/deals"
+import { updateDealStage, type DealWithRelations } from "@/lib/actions/deals"
+import type { DealStage } from "@/lib/constants"
 import { MapPin, DollarSign, GripVertical } from "lucide-react"
 
 type StageWithDeals = {

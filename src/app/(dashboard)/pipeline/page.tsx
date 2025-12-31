@@ -1,4 +1,5 @@
-import { getActiveDeals, DEAL_STAGES } from "@/lib/actions/deals"
+import { getActiveDeals } from "@/lib/actions/deals"
+import { DEAL_STAGES } from "@/lib/constants"
 import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
 import Link from "next/link"
