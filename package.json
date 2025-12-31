@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "echo \"No tests configured yet\" && exit 0",
+    "test:e2e": "playwright test",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "db:generate": "drizzle-kit generate",
@@ -42,6 +43,7 @@
     "zod": "^4.3.2"
   },
   "devDependencies": {
+    "@playwright/test": "^1.57.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
