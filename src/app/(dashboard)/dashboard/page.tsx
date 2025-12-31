@@ -1,8 +1,8 @@
-import { getDashboardStats, getPipelineByStage } from "@/lib/actions/stats"
-import { getTodaysTasks } from "@/lib/actions/tasks"
-import { getRecentActivities } from "@/lib/actions/activities"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { getDashboardStats, getPipelineByStage } from '@/lib/actions/stats';
+import { getTodaysTasks } from '@/lib/actions/tasks';
+import { getRecentActivities } from '@/lib/actions/activities';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import {
   DollarSign,
   Briefcase,
@@ -17,8 +17,8 @@ import {
   RefreshCw,
   MoreHorizontal,
   Clock,
-} from "lucide-react"
-import Link from "next/link"
+} from 'lucide-react';
+import Link from 'next/link';
 
 const typeIcons: Record<string, React.ReactNode> = {
   call: <Phone className="h-4 w-4" />,
@@ -27,13 +27,13 @@ const typeIcons: Record<string, React.ReactNode> = {
   demo: <Monitor className="h-4 w-4" />,
   follow_up: <RefreshCw className="h-4 w-4" />,
   other: <MoreHorizontal className="h-4 w-4" />,
-}
+};
 
-const priorityColors: Record<string, "destructive" | "warning" | "secondary"> = {
-  high: "destructive",
-  medium: "warning",
-  low: "secondary",
-}
+const priorityColors: Record<string, 'destructive' | 'warning' | 'secondary'> = {
+  high: 'destructive',
+  medium: 'warning',
+  low: 'secondary',
+};
 
 export default async function DashboardPage() {
   const [stats, pipelineStages, todaysTasks, recentActivities] = await Promise.all([
@@ -41,23 +41,21 @@ export default async function DashboardPage() {
     getPipelineByStage(),
     getTodaysTasks(),
     getRecentActivities(5),
-  ])
+  ]);
 
   const formatCurrency = (value: number) => {
-    if (value >= 1000000) return `$${(value / 1000000).toFixed(1)}M`
-    if (value >= 1000) return `$${(value / 1000).toFixed(0)}K`
-    return `$${value.toLocaleString()}`
-  }
+    if (value >= 1000000) return `$${(value / 1000000).toFixed(1)}M`;
+    if (value >= 1000) return `$${(value / 1000).toFixed(0)}K`;
+    return `$${value.toLocaleString()}`;
+  };
 
-  const maxPipelineValue = Math.max(...pipelineStages.map((s) => s.value), 1)
+  const maxPipelineValue = Math.max(...pipelineStages.map((s) => s.value), 1);
 
   return (
     <div className="p-8">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Dashboard</h1>
-        <p className="text-slate-600 dark:text-slate-400">
-          Your sales pipeline at a glance
-        </p>
+        <p className="text-slate-600 dark:text-slate-400">Your sales pipeline at a glance</p>
       </div>
 
       {/* Stats Grid */}
@@ -139,9 +137,7 @@ export default async function DashboardPage() {
                 <p className="text-xl font-bold text-slate-900 dark:text-white">
                   {formatCurrency(stats.closedThisMonth)}
                 </p>
-                <p className="text-sm text-slate-500 dark:text-slate-400">
-                  Closed This Month
-                </p>
+                <p className="text-sm text-slate-500 dark:text-slate-400">Closed This Month</p>
               </div>
             </div>
           </CardContent>
@@ -154,12 +150,8 @@ export default async function DashboardPage() {
                 <Target className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
               </div>
               <div>
-                <p className="text-xl font-bold text-slate-900 dark:text-white">
-                  {stats.winRate}%
-                </p>
-                <p className="text-sm text-slate-500 dark:text-slate-400">
-                  Win Rate (90 days)
-                </p>
+                <p className="text-xl font-bold text-slate-900 dark:text-white">{stats.winRate}%</p>
+                <p className="text-sm text-slate-500 dark:text-slate-400">Win Rate (90 days)</p>
               </div>
             </div>
           </CardContent>
@@ -183,7 +175,7 @@ export default async function DashboardPage() {
           <CardContent>
             {pipelineStages.length === 0 ? (
               <p className="text-center text-slate-500 dark:text-slate-400 py-8">
-                No active deals yet.{" "}
+                No active deals yet.{' '}
                 <Link href="/pipeline/new" className="text-teal-600 hover:text-teal-700">
                   Create your first deal
                 </Link>
@@ -229,7 +221,7 @@ export default async function DashboardPage() {
           <CardContent>
             {todaysTasks.length === 0 ? (
               <p className="text-center text-slate-500 dark:text-slate-400 py-8">
-                No tasks due today.{" "}
+                No tasks due today.{' '}
                 <Link href="/tasks/new" className="text-teal-600 hover:text-teal-700">
                   Create a task
                 </Link>
@@ -237,7 +229,7 @@ export default async function DashboardPage() {
             ) : (
               <div className="space-y-3">
                 {todaysTasks.slice(0, 5).map((task) => {
-                  const isOverdue = task.dueAt && new Date(task.dueAt) < new Date()
+                  const isOverdue = task.dueAt && new Date(task.dueAt) < new Date();
                   return (
                     <div
                       key={task.id}
@@ -255,16 +247,12 @@ export default async function DashboardPage() {
                       </div>
                       <div className="flex flex-shrink-0 items-center gap-2">
                         {task.priority && (
-                          <Badge variant={priorityColors[task.priority]}>
-                            {task.priority}
-                          </Badge>
+                          <Badge variant={priorityColors[task.priority]}>{task.priority}</Badge>
                         )}
-                        {isOverdue && (
-                          <Clock className="h-4 w-4 text-red-500" />
-                        )}
+                        {isOverdue && <Clock className="h-4 w-4 text-red-500" />}
                       </div>
                     </div>
-                  )
+                  );
                 })}
                 {todaysTasks.length > 5 && (
                   <p className="text-center text-sm text-slate-500 dark:text-slate-400">
@@ -292,7 +280,7 @@ export default async function DashboardPage() {
           <CardContent>
             {recentActivities.length === 0 ? (
               <p className="text-center text-slate-500 dark:text-slate-400 py-8">
-                No activities logged yet.{" "}
+                No activities logged yet.{' '}
                 <Link href="/activities/new" className="text-teal-600 hover:text-teal-700">
                   Log your first activity
                 </Link>
@@ -309,13 +297,9 @@ export default async function DashboardPage() {
                         {activity.subject}
                       </p>
                       <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
-                        {activity.facility && (
-                          <span>{activity.facility.name}</span>
-                        )}
+                        {activity.facility && <span>{activity.facility.name}</span>}
                         <span>•</span>
-                        <span>
-                          {new Date(activity.occurredAt).toLocaleDateString()}
-                        </span>
+                        <span>{new Date(activity.occurredAt).toLocaleDateString()}</span>
                       </div>
                     </div>
                   </div>
@@ -326,5 +310,5 @@ export default async function DashboardPage() {
         </Card>
       </div>
     </div>
-  )
+  );
 }

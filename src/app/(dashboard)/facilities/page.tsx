@@ -1,6 +1,6 @@
-import { getFacilities } from "@/lib/actions/facilities"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
+import { getFacilities } from '@/lib/actions/facilities';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import {
   Table,
   TableBody,
@@ -8,19 +8,19 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { Plus } from "lucide-react"
-import Link from "next/link"
+} from '@/components/ui/table';
+import { Plus } from 'lucide-react';
+import Link from 'next/link';
 
 const facilityTypeLabels: Record<string, string> = {
-  hospice: "Hospice",
-  home_health: "Home Health",
-  palliative: "Palliative",
-  hybrid: "Hybrid",
-}
+  hospice: 'Hospice',
+  home_health: 'Home Health',
+  palliative: 'Palliative',
+  hybrid: 'Hybrid',
+};
 
 export default async function FacilitiesPage() {
-  const facilities = await getFacilities()
+  const facilities = await getFacilities();
 
   return (
     <div className="p-8">
@@ -84,18 +84,18 @@ export default async function FacilitiesPage() {
                   <TableCell className="text-slate-600 dark:text-slate-400">
                     {facility.city && facility.state
                       ? `${facility.city}, ${facility.state}`
-                      : facility.city || facility.state || "-"}
+                      : facility.city || facility.state || '-'}
                   </TableCell>
                   <TableCell className="text-slate-600 dark:text-slate-400">
-                    {facility.censusSize ?? "-"}
+                    {facility.censusSize ?? '-'}
                   </TableCell>
                   <TableCell className="text-slate-600 dark:text-slate-400">
-                    {facility.currentSoftware ?? "-"}
+                    {facility.currentSoftware ?? '-'}
                   </TableCell>
                   <TableCell className="text-slate-600 dark:text-slate-400">
                     {facility.contractRenewalDate
                       ? new Date(facility.contractRenewalDate).toLocaleDateString()
-                      : "-"}
+                      : '-'}
                   </TableCell>
                 </TableRow>
               ))}
@@ -104,5 +104,5 @@ export default async function FacilitiesPage() {
         </div>
       )}
     </div>
-  )
+  );
 }

@@ -1,40 +1,40 @@
-"use client"
+'use client';
 
-import { useState, useEffect } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
-import { createTask } from "@/lib/actions/tasks"
-import { TASK_TYPES, PRIORITIES } from "@/lib/constants"
-import { getFacilities } from "@/lib/actions/facilities"
-import { getContacts } from "@/lib/actions/contacts"
-import { getActiveDeals } from "@/lib/actions/deals"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
+import { useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { createTask } from '@/lib/actions/tasks';
+import { TASK_TYPES, PRIORITIES } from '@/lib/constants';
+import { getFacilities } from '@/lib/actions/facilities';
+import { getContacts } from '@/lib/actions/contacts';
+import { getActiveDeals } from '@/lib/actions/deals';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowLeft } from "lucide-react"
-import Link from "next/link"
-import type { Facility, Contact, Deal } from "@/lib/db/schema"
+} from '@/components/ui/select';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
+import type { Facility, Contact, Deal } from '@/lib/db/schema';
 
 export default function NewTaskPage() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const preselectedFacilityId = searchParams.get("facilityId")
-  const preselectedContactId = searchParams.get("contactId")
-  const preselectedDealId = searchParams.get("dealId")
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const preselectedFacilityId = searchParams.get('facilityId');
+  const preselectedContactId = searchParams.get('contactId');
+  const preselectedDealId = searchParams.get('dealId');
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [facilities, setFacilities] = useState<Facility[]>([])
-  const [contacts, setContacts] = useState<Contact[]>([])
-  const [deals, setDeals] = useState<Deal[]>([])
-  const [selectedFacilityId, setSelectedFacilityId] = useState(preselectedFacilityId ?? "")
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [facilities, setFacilities] = useState<Facility[]>([]);
+  const [contacts, setContacts] = useState<Contact[]>([]);
+  const [deals, setDeals] = useState<Deal[]>([]);
+  const [selectedFacilityId, setSelectedFacilityId] = useState(preselectedFacilityId ?? '');
 
   useEffect(() => {
     async function loadData() {
@@ -42,41 +42,39 @@ export default function NewTaskPage() {
         getFacilities(),
         getContacts(),
         getActiveDeals(),
-      ])
-      setFacilities(facilitiesData)
-      setContacts(contactsData)
-      setDeals(dealsData)
+      ]);
+      setFacilities(facilitiesData);
+      setContacts(contactsData);
+      setDeals(dealsData);
     }
-    loadData()
-  }, [])
+    loadData();
+  }, []);
 
   // Set default due date to tomorrow
-  const tomorrow = new Date()
-  tomorrow.setDate(tomorrow.getDate() + 1)
-  const defaultDueDate = tomorrow.toISOString().split("T")[0]
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const defaultDueDate = tomorrow.toISOString().split('T')[0];
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    setIsSubmitting(true);
 
-    const formData = new FormData(e.currentTarget)
+    const formData = new FormData(e.currentTarget);
 
     try {
       await createTask({
-        type: formData.get("type") as string,
-        description: formData.get("description") as string,
+        type: formData.get('type') as string,
+        description: formData.get('description') as string,
         facilityId: selectedFacilityId || null,
-        contactId: formData.get("contactId") as string || null,
-        dealId: formData.get("dealId") as string || null,
-        dueAt: formData.get("dueAt")
-          ? new Date(formData.get("dueAt") as string)
-          : null,
-        priority: formData.get("priority") as string || "medium",
-      })
-      router.push("/tasks")
+        contactId: (formData.get('contactId') as string) || null,
+        dealId: (formData.get('dealId') as string) || null,
+        dueAt: formData.get('dueAt') ? new Date(formData.get('dueAt') as string) : null,
+        priority: (formData.get('priority') as string) || 'medium',
+      });
+      router.push('/tasks');
     } catch (error) {
-      console.error("Failed to create task:", error)
-      setIsSubmitting(false)
+      console.error('Failed to create task:', error);
+      setIsSubmitting(false);
     }
   }
 
@@ -147,12 +145,7 @@ export default function NewTaskPage() {
 
               <div className="space-y-2">
                 <Label htmlFor="dueAt">Due Date</Label>
-                <Input
-                  id="dueAt"
-                  name="dueAt"
-                  type="date"
-                  defaultValue={defaultDueDate}
-                />
+                <Input id="dueAt" name="dueAt" type="date" defaultValue={defaultDueDate} />
               </div>
             </CardContent>
           </Card>
@@ -215,7 +208,7 @@ export default function NewTaskPage() {
 
         <div className="mt-6 flex gap-4">
           <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Creating..." : "Create Task"}
+            {isSubmitting ? 'Creating...' : 'Create Task'}
           </Button>
           <Link href="/tasks">
             <Button type="button" variant="outline">
@@ -225,5 +218,5 @@ export default function NewTaskPage() {
         </div>
       </form>
     </div>
-  )
+  );
 }

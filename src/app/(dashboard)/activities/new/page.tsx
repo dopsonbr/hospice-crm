@@ -1,40 +1,40 @@
-"use client"
+'use client';
 
-import { useState, useEffect } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
-import { createActivity } from "@/lib/actions/activities"
-import { ACTIVITY_TYPES, OUTCOMES } from "@/lib/constants"
-import { getFacilities } from "@/lib/actions/facilities"
-import { getContacts } from "@/lib/actions/contacts"
-import { getActiveDeals } from "@/lib/actions/deals"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
+import { useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { createActivity } from '@/lib/actions/activities';
+import { ACTIVITY_TYPES, OUTCOMES } from '@/lib/constants';
+import { getFacilities } from '@/lib/actions/facilities';
+import { getContacts } from '@/lib/actions/contacts';
+import { getActiveDeals } from '@/lib/actions/deals';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowLeft } from "lucide-react"
-import Link from "next/link"
-import type { Facility, Contact, Deal } from "@/lib/db/schema"
+} from '@/components/ui/select';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
+import type { Facility, Contact, Deal } from '@/lib/db/schema';
 
 export default function NewActivityPage() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const preselectedFacilityId = searchParams.get("facilityId")
-  const preselectedContactId = searchParams.get("contactId")
-  const preselectedDealId = searchParams.get("dealId")
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const preselectedFacilityId = searchParams.get('facilityId');
+  const preselectedContactId = searchParams.get('contactId');
+  const preselectedDealId = searchParams.get('dealId');
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [facilities, setFacilities] = useState<Facility[]>([])
-  const [contacts, setContacts] = useState<Contact[]>([])
-  const [deals, setDeals] = useState<Deal[]>([])
-  const [selectedFacilityId, setSelectedFacilityId] = useState(preselectedFacilityId ?? "")
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [facilities, setFacilities] = useState<Facility[]>([]);
+  const [contacts, setContacts] = useState<Contact[]>([]);
+  const [deals, setDeals] = useState<Deal[]>([]);
+  const [selectedFacilityId, setSelectedFacilityId] = useState(preselectedFacilityId ?? '');
 
   useEffect(() => {
     async function loadData() {
@@ -42,45 +42,45 @@ export default function NewActivityPage() {
         getFacilities(),
         getContacts(),
         getActiveDeals(),
-      ])
-      setFacilities(facilitiesData)
-      setContacts(contactsData)
-      setDeals(dealsData)
+      ]);
+      setFacilities(facilitiesData);
+      setContacts(contactsData);
+      setDeals(dealsData);
     }
-    loadData()
-  }, [])
+    loadData();
+  }, []);
 
   // Default to now
-  const now = new Date()
-  const defaultDate = now.toISOString().split("T")[0]
-  const defaultTime = now.toTimeString().slice(0, 5)
+  const now = new Date();
+  const defaultDate = now.toISOString().split('T')[0];
+  const defaultTime = now.toTimeString().slice(0, 5);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    setIsSubmitting(true);
 
-    const formData = new FormData(e.currentTarget)
+    const formData = new FormData(e.currentTarget);
 
-    const dateStr = formData.get("date") as string
-    const timeStr = formData.get("time") as string
-    const occurredAt = dateStr && timeStr ? new Date(`${dateStr}T${timeStr}`) : new Date()
+    const dateStr = formData.get('date') as string;
+    const timeStr = formData.get('time') as string;
+    const occurredAt = dateStr && timeStr ? new Date(`${dateStr}T${timeStr}`) : new Date();
 
     try {
       await createActivity({
-        type: formData.get("type") as string,
-        subject: formData.get("subject") as string,
+        type: formData.get('type') as string,
+        subject: formData.get('subject') as string,
         facilityId: selectedFacilityId || null,
-        contactId: formData.get("contactId") as string || null,
-        dealId: formData.get("dealId") as string || null,
+        contactId: (formData.get('contactId') as string) || null,
+        dealId: (formData.get('dealId') as string) || null,
         occurredAt,
-        duration: formData.get("duration") ? Number(formData.get("duration")) : null,
-        outcome: formData.get("outcome") as string || null,
-        notes: formData.get("notes") as string || null,
-      })
-      router.push("/activities")
+        duration: formData.get('duration') ? Number(formData.get('duration')) : null,
+        outcome: (formData.get('outcome') as string) || null,
+        notes: (formData.get('notes') as string) || null,
+      });
+      router.push('/activities');
     } catch (error) {
-      console.error("Failed to create activity:", error)
-      setIsSubmitting(false)
+      console.error('Failed to create activity:', error);
+      setIsSubmitting(false);
     }
   }
 
@@ -161,13 +161,7 @@ export default function NewActivityPage() {
 
                 <div className="space-y-2">
                   <Label htmlFor="duration">Duration (min)</Label>
-                  <Input
-                    id="duration"
-                    name="duration"
-                    type="number"
-                    min="0"
-                    placeholder="30"
-                  />
+                  <Input id="duration" name="duration" type="number" min="0" placeholder="30" />
                 </div>
               </div>
 
@@ -241,7 +235,7 @@ export default function NewActivityPage() {
 
         <div className="mt-6 flex gap-4">
           <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Saving..." : "Log Activity"}
+            {isSubmitting ? 'Saving...' : 'Log Activity'}
           </Button>
           <Link href="/activities">
             <Button type="button" variant="outline">
@@ -251,5 +245,5 @@ export default function NewActivityPage() {
         </div>
       </form>
     </div>
-  )
+  );
 }

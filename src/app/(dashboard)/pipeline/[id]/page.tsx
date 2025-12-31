@@ -1,52 +1,58 @@
-import { notFound } from "next/navigation"
-import Link from "next/link"
-import { getDeal, deleteDeal } from "@/lib/actions/deals"
-import { DEAL_STAGES } from "@/lib/constants"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowLeft, Edit, Trash2, Building2, User, DollarSign, Calendar, Target } from "lucide-react"
-import { redirect } from "next/navigation"
+import { notFound } from 'next/navigation';
+import Link from 'next/link';
+import { getDeal, deleteDeal } from '@/lib/actions/deals';
+import { DEAL_STAGES } from '@/lib/constants';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  ArrowLeft,
+  Edit,
+  Trash2,
+  Building2,
+  User,
+  DollarSign,
+  Calendar,
+  Target,
+} from 'lucide-react';
+import { redirect } from 'next/navigation';
 
-export default async function DealDetailPage({
-  params,
-}: {
-  params: Promise<{ id: string }>
-}) {
-  const { id } = await params
-  const deal = await getDeal(id)
+export default async function DealDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const deal = await getDeal(id);
 
   if (!deal) {
-    notFound()
+    notFound();
   }
 
-  const stage = DEAL_STAGES.find((s) => s.value === deal.stage)
+  const stage = DEAL_STAGES.find((s) => s.value === deal.stage);
 
   async function handleDelete() {
-    "use server"
-    await deleteDeal(id)
-    redirect("/pipeline")
+    'use server';
+    await deleteDeal(id);
+    redirect('/pipeline');
   }
 
   const formatCurrency = (value: string | null) => {
-    if (!value) return "-"
-    return `$${Number(value).toLocaleString()}`
-  }
+    if (!value) return '-';
+    return `$${Number(value).toLocaleString()}`;
+  };
 
   const getStageColor = (stageName: string) => {
-    const colors: Record<string, "default" | "secondary" | "success" | "warning" | "destructive"> = {
-      lead: "secondary",
-      discovery: "secondary",
-      demo_scheduled: "warning",
-      demo_completed: "warning",
-      proposal_sent: "default",
-      negotiation: "default",
-      verbal_commit: "success",
-      closed_won: "success",
-      closed_lost: "destructive",
-    }
-    return colors[stageName] ?? "secondary"
-  }
+    const colors: Record<string, 'default' | 'secondary' | 'success' | 'warning' | 'destructive'> =
+      {
+        lead: 'secondary',
+        discovery: 'secondary',
+        demo_scheduled: 'warning',
+        demo_completed: 'warning',
+        proposal_sent: 'default',
+        negotiation: 'default',
+        verbal_commit: 'success',
+        closed_won: 'success',
+        closed_lost: 'destructive',
+      };
+    return colors[stageName] ?? 'secondary';
+  };
 
   return (
     <div className="p-8">
@@ -61,13 +67,9 @@ export default async function DealDetailPage({
 
         <div className="flex items-start justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
-              {deal.name}
-            </h1>
+            <h1 className="text-2xl font-bold text-slate-900 dark:text-white">{deal.name}</h1>
             <div className="mt-2 flex flex-wrap items-center gap-3">
-              <Badge variant={getStageColor(deal.stage)}>
-                {stage?.label ?? deal.stage}
-              </Badge>
+              <Badge variant={getStageColor(deal.stage)}>{stage?.label ?? deal.stage}</Badge>
               <span className="text-sm text-slate-500 dark:text-slate-400">
                 {stage?.probability ?? 0}% probability
               </span>
@@ -111,9 +113,7 @@ export default async function DealDetailPage({
                   <div className="text-xl font-semibold text-slate-900 dark:text-white">
                     {formatCurrency(deal.recurringValue)}
                   </div>
-                  <div className="text-sm text-slate-500 dark:text-slate-400">
-                    Annual Recurring
-                  </div>
+                  <div className="text-sm text-slate-500 dark:text-slate-400">Annual Recurring</div>
                 </div>
               )}
             </div>
@@ -136,7 +136,7 @@ export default async function DealDetailPage({
                 <dd className="text-lg font-medium text-slate-900 dark:text-white">
                   {deal.expectedCloseDate
                     ? new Date(deal.expectedCloseDate).toLocaleDateString()
-                    : "-"}
+                    : '-'}
                 </dd>
               </div>
               <div>
@@ -158,7 +158,7 @@ export default async function DealDetailPage({
           </CardHeader>
           <CardContent>
             <p className="text-slate-900 dark:text-white">
-              {deal.nextStep ?? "No next step defined"}
+              {deal.nextStep ?? 'No next step defined'}
             </p>
           </CardContent>
         </Card>
@@ -216,7 +216,7 @@ export default async function DealDetailPage({
           </CardHeader>
           <CardContent>
             <p className="text-slate-900 dark:text-white">
-              {deal.competitors ?? "No competitors noted"}
+              {deal.competitors ?? 'No competitors noted'}
             </p>
           </CardContent>
         </Card>
@@ -227,7 +227,7 @@ export default async function DealDetailPage({
           </CardHeader>
           <CardContent>
             <p className="whitespace-pre-wrap text-slate-600 dark:text-slate-400">
-              {deal.notes ?? "No notes yet."}
+              {deal.notes ?? 'No notes yet.'}
             </p>
           </CardContent>
         </Card>
@@ -260,5 +260,5 @@ export default async function DealDetailPage({
         </Card>
       </div>
     </div>
-  )
+  );
 }

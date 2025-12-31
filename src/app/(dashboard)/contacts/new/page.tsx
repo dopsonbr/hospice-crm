@@ -1,85 +1,85 @@
-"use client"
+'use client';
 
-import { useState, useEffect } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
-import { createContact } from "@/lib/actions/contacts"
-import { getFacilities } from "@/lib/actions/facilities"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
+import { useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { createContact } from '@/lib/actions/contacts';
+import { getFacilities } from '@/lib/actions/facilities';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowLeft } from "lucide-react"
-import Link from "next/link"
-import type { Facility } from "@/lib/db/schema"
+} from '@/components/ui/select';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
+import type { Facility } from '@/lib/db/schema';
 
 const buyerRoles = [
-  { value: "decision_maker", label: "Decision Maker" },
-  { value: "influencer", label: "Influencer" },
-  { value: "champion", label: "Champion" },
-  { value: "blocker", label: "Blocker" },
-  { value: "end_user", label: "End User" },
-]
+  { value: 'decision_maker', label: 'Decision Maker' },
+  { value: 'influencer', label: 'Influencer' },
+  { value: 'champion', label: 'Champion' },
+  { value: 'blocker', label: 'Blocker' },
+  { value: 'end_user', label: 'End User' },
+];
 
 const preferredContactMethods = [
-  { value: "email", label: "Email" },
-  { value: "phone", label: "Phone" },
-  { value: "text", label: "Text" },
-  { value: "in_person", label: "In-Person" },
-]
+  { value: 'email', label: 'Email' },
+  { value: 'phone', label: 'Phone' },
+  { value: 'text', label: 'Text' },
+  { value: 'in_person', label: 'In-Person' },
+];
 
 export default function NewContactPage() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const preselectedFacilityId = searchParams.get("facilityId")
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const preselectedFacilityId = searchParams.get('facilityId');
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [facilities, setFacilities] = useState<Facility[]>([])
-  const [selectedFacilityId, setSelectedFacilityId] = useState(preselectedFacilityId ?? "")
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [facilities, setFacilities] = useState<Facility[]>([]);
+  const [selectedFacilityId, setSelectedFacilityId] = useState(preselectedFacilityId ?? '');
 
   useEffect(() => {
     async function loadFacilities() {
-      const data = await getFacilities()
-      setFacilities(data)
+      const data = await getFacilities();
+      setFacilities(data);
     }
-    loadFacilities()
-  }, [])
+    loadFacilities();
+  }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    setIsSubmitting(true);
 
-    const formData = new FormData(e.currentTarget)
+    const formData = new FormData(e.currentTarget);
 
     try {
       await createContact({
-        name: formData.get("name") as string,
+        name: formData.get('name') as string,
         facilityId: selectedFacilityId || null,
-        title: formData.get("title") as string || null,
-        buyerRole: formData.get("buyerRole") as string || null,
-        email: formData.get("email") as string || null,
-        phone: formData.get("phone") as string || null,
-        mobile: formData.get("mobile") as string || null,
-        preferredContact: formData.get("preferredContact") as string || null,
-        linkedinUrl: formData.get("linkedinUrl") as string || null,
-        notes: formData.get("notes") as string || null,
-      })
+        title: (formData.get('title') as string) || null,
+        buyerRole: (formData.get('buyerRole') as string) || null,
+        email: (formData.get('email') as string) || null,
+        phone: (formData.get('phone') as string) || null,
+        mobile: (formData.get('mobile') as string) || null,
+        preferredContact: (formData.get('preferredContact') as string) || null,
+        linkedinUrl: (formData.get('linkedinUrl') as string) || null,
+        notes: (formData.get('notes') as string) || null,
+      });
 
       if (preselectedFacilityId) {
-        router.push(`/facilities/${preselectedFacilityId}`)
+        router.push(`/facilities/${preselectedFacilityId}`);
       } else {
-        router.push("/contacts")
+        router.push('/contacts');
       }
     } catch (error) {
-      console.error("Failed to create contact:", error)
-      setIsSubmitting(false)
+      console.error('Failed to create contact:', error);
+      setIsSubmitting(false);
     }
   }
 
@@ -87,7 +87,7 @@ export default function NewContactPage() {
     <div className="p-8">
       <div className="mb-6">
         <Link
-          href={preselectedFacilityId ? `/facilities/${preselectedFacilityId}` : "/contacts"}
+          href={preselectedFacilityId ? `/facilities/${preselectedFacilityId}` : '/contacts'}
           className="mb-4 inline-flex items-center gap-2 text-sm text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
         >
           <ArrowLeft className="h-4 w-4" />
@@ -219,9 +219,9 @@ export default function NewContactPage() {
 
         <div className="mt-6 flex gap-4">
           <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Creating..." : "Create Contact"}
+            {isSubmitting ? 'Creating...' : 'Create Contact'}
           </Button>
-          <Link href={preselectedFacilityId ? `/facilities/${preselectedFacilityId}` : "/contacts"}>
+          <Link href={preselectedFacilityId ? `/facilities/${preselectedFacilityId}` : '/contacts'}>
             <Button type="button" variant="outline">
               Cancel
             </Button>
@@ -229,5 +229,5 @@ export default function NewContactPage() {
         </div>
       </form>
     </div>
-  )
+  );
 }

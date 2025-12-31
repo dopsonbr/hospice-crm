@@ -1,11 +1,4 @@
-import {
-  pgTable,
-  uuid,
-  text,
-  timestamp,
-  integer,
-  decimal,
-} from 'drizzle-orm/pg-core'
+import { pgTable, uuid, text, timestamp, integer, decimal } from 'drizzle-orm/pg-core';
 
 // Facilities table
 export const facilities = pgTable('facilities', {
@@ -27,7 +20,7 @@ export const facilities = pgTable('facilities', {
   notes: text('notes'),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
-})
+});
 
 // Contacts table
 export const contacts = pgTable('contacts', {
@@ -46,7 +39,7 @@ export const contacts = pgTable('contacts', {
   lastContactAt: timestamp('last_contact_at', { withTimezone: true }),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
-})
+});
 
 // Deals table
 export const deals = pgTable('deals', {
@@ -66,7 +59,7 @@ export const deals = pgTable('deals', {
   notes: text('notes'),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
-})
+});
 
 // Activities table
 export const activities = pgTable('activities', {
@@ -82,7 +75,7 @@ export const activities = pgTable('activities', {
   occurredAt: timestamp('occurred_at', { withTimezone: true }).defaultNow().notNull(),
   duration: integer('duration'),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
-})
+});
 
 // Tasks table
 export const tasks = pgTable('tasks', {
@@ -98,16 +91,16 @@ export const tasks = pgTable('tasks', {
   completedAt: timestamp('completed_at', { withTimezone: true }),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
-})
+});
 
 // Export types
-export type Facility = typeof facilities.$inferSelect
-export type NewFacility = typeof facilities.$inferInsert
-export type Contact = typeof contacts.$inferSelect
-export type NewContact = typeof contacts.$inferInsert
-export type Deal = typeof deals.$inferSelect
-export type NewDeal = typeof deals.$inferInsert
-export type Activity = typeof activities.$inferSelect
-export type NewActivity = typeof activities.$inferInsert
-export type Task = typeof tasks.$inferSelect
-export type NewTask = typeof tasks.$inferInsert
+export type Facility = typeof facilities.$inferSelect;
+export type NewFacility = typeof facilities.$inferInsert;
+export type Contact = typeof contacts.$inferSelect;
+export type NewContact = typeof contacts.$inferInsert;
+export type Deal = typeof deals.$inferSelect;
+export type NewDeal = typeof deals.$inferInsert;
+export type Activity = typeof activities.$inferSelect;
+export type NewActivity = typeof activities.$inferInsert;
+export type Task = typeof tasks.$inferSelect;
+export type NewTask = typeof tasks.$inferInsert;

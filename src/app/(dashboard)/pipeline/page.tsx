@@ -1,20 +1,20 @@
-import { getActiveDeals } from "@/lib/actions/deals"
-import { DEAL_STAGES } from "@/lib/constants"
-import { Button } from "@/components/ui/button"
-import { Plus } from "lucide-react"
-import Link from "next/link"
-import { PipelineBoard } from "./pipeline-board"
+import { getActiveDeals } from '@/lib/actions/deals';
+import { DEAL_STAGES } from '@/lib/constants';
+import { Button } from '@/components/ui/button';
+import { Plus } from 'lucide-react';
+import Link from 'next/link';
+import { PipelineBoard } from './pipeline-board';
 
 export default async function PipelinePage() {
-  const deals = await getActiveDeals()
+  const deals = await getActiveDeals();
 
   // Group deals by stage
   const dealsByStage = DEAL_STAGES.filter(
-    (s) => s.value !== "closed_won" && s.value !== "closed_lost"
+    (s) => s.value !== 'closed_won' && s.value !== 'closed_lost'
   ).map((stage) => ({
     ...stage,
     deals: deals.filter((d) => d.stage === stage.value),
-  }))
+  }));
 
   return (
     <div className="flex h-full flex-col">
@@ -22,9 +22,7 @@ export default async function PipelinePage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Pipeline</h1>
-            <p className="text-slate-600 dark:text-slate-400">
-              Manage your sales opportunities
-            </p>
+            <p className="text-slate-600 dark:text-slate-400">Manage your sales opportunities</p>
           </div>
           <Link href="/pipeline/new">
             <Button>
@@ -39,5 +37,5 @@ export default async function PipelinePage() {
         <PipelineBoard stages={dealsByStage} />
       </div>
     </div>
-  )
+  );
 }
