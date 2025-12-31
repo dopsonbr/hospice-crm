@@ -1,6 +1,6 @@
-import { getContacts } from "@/lib/actions/contacts"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
+import { getContacts } from '@/lib/actions/contacts';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import {
   Table,
   TableBody,
@@ -8,28 +8,31 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { Plus, Phone, Mail } from "lucide-react"
-import Link from "next/link"
+} from '@/components/ui/table';
+import { Plus, Phone, Mail } from 'lucide-react';
+import Link from 'next/link';
 
 const buyerRoleLabels: Record<string, string> = {
-  decision_maker: "Decision Maker",
-  influencer: "Influencer",
-  champion: "Champion",
-  blocker: "Blocker",
-  end_user: "End User",
-}
+  decision_maker: 'Decision Maker',
+  influencer: 'Influencer',
+  champion: 'Champion',
+  blocker: 'Blocker',
+  end_user: 'End User',
+};
 
-const buyerRoleColors: Record<string, "default" | "secondary" | "success" | "warning" | "destructive"> = {
-  decision_maker: "default",
-  champion: "success",
-  influencer: "secondary",
-  blocker: "destructive",
-  end_user: "secondary",
-}
+const buyerRoleColors: Record<
+  string,
+  'default' | 'secondary' | 'success' | 'warning' | 'destructive'
+> = {
+  decision_maker: 'default',
+  champion: 'success',
+  influencer: 'secondary',
+  blocker: 'destructive',
+  end_user: 'secondary',
+};
 
 export default async function ContactsPage() {
-  const contacts = await getContacts()
+  const contacts = await getContacts();
 
   return (
     <div className="p-8">
@@ -86,7 +89,7 @@ export default async function ContactsPage() {
                     </Link>
                   </TableCell>
                   <TableCell className="text-slate-600 dark:text-slate-400">
-                    {contact.title ?? "-"}
+                    {contact.title ?? '-'}
                   </TableCell>
                   <TableCell>
                     {contact.facility ? (
@@ -97,16 +100,16 @@ export default async function ContactsPage() {
                         {contact.facility.name}
                       </Link>
                     ) : (
-                      "-"
+                      '-'
                     )}
                   </TableCell>
                   <TableCell>
                     {contact.buyerRole ? (
-                      <Badge variant={buyerRoleColors[contact.buyerRole] ?? "secondary"}>
+                      <Badge variant={buyerRoleColors[contact.buyerRole] ?? 'secondary'}>
                         {buyerRoleLabels[contact.buyerRole] ?? contact.buyerRole}
                       </Badge>
                     ) : (
-                      "-"
+                      '-'
                     )}
                   </TableCell>
                   <TableCell>
@@ -134,7 +137,7 @@ export default async function ContactsPage() {
                   <TableCell className="text-slate-600 dark:text-slate-400">
                     {contact.lastContactAt
                       ? new Date(contact.lastContactAt).toLocaleDateString()
-                      : "-"}
+                      : '-'}
                   </TableCell>
                 </TableRow>
               ))}
@@ -143,5 +146,5 @@ export default async function ContactsPage() {
         </div>
       )}
     </div>
-  )
+  );
 }

@@ -1,91 +1,84 @@
-"use client"
+'use client';
 
-import { useState, useEffect } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
-import { createDeal } from "@/lib/actions/deals"
-import { DEAL_STAGES } from "@/lib/constants"
-import { getFacilities } from "@/lib/actions/facilities"
-import { getContacts } from "@/lib/actions/contacts"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
+import { useState, useEffect, useMemo } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { createDeal } from '@/lib/actions/deals';
+import { DEAL_STAGES } from '@/lib/constants';
+import { getFacilities } from '@/lib/actions/facilities';
+import { getContacts } from '@/lib/actions/contacts';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowLeft } from "lucide-react"
-import Link from "next/link"
-import type { Facility, Contact } from "@/lib/db/schema"
+} from '@/components/ui/select';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
+import type { Facility, Contact } from '@/lib/db/schema';
 
 export default function NewDealPage() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const preselectedFacilityId = searchParams.get("facilityId")
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const preselectedFacilityId = searchParams.get('facilityId');
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [facilities, setFacilities] = useState<Facility[]>([])
-  const [contacts, setContacts] = useState<Contact[]>([])
-  const [selectedFacilityId, setSelectedFacilityId] = useState(preselectedFacilityId ?? "")
-  const [filteredContacts, setFilteredContacts] = useState<Contact[]>([])
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [facilities, setFacilities] = useState<Facility[]>([]);
+  const [contacts, setContacts] = useState<Contact[]>([]);
+  const [selectedFacilityId, setSelectedFacilityId] = useState(preselectedFacilityId ?? '');
 
   useEffect(() => {
     async function loadData() {
-      const [facilitiesData, contactsData] = await Promise.all([
-        getFacilities(),
-        getContacts(),
-      ])
-      setFacilities(facilitiesData)
-      setContacts(contactsData)
+      const [facilitiesData, contactsData] = await Promise.all([getFacilities(), getContacts()]);
+      setFacilities(facilitiesData);
+      setContacts(contactsData);
     }
-    loadData()
-  }, [])
+    loadData();
+  }, []);
 
-  useEffect(() => {
+  const filteredContacts = useMemo(() => {
     if (selectedFacilityId) {
-      setFilteredContacts(
-        contacts.filter((c) => c.facilityId === selectedFacilityId)
-      )
-    } else {
-      setFilteredContacts(contacts)
+      return contacts.filter((c) => c.facilityId === selectedFacilityId);
     }
-  }, [selectedFacilityId, contacts])
+    return contacts;
+  }, [selectedFacilityId, contacts]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    setIsSubmitting(true);
 
-    const formData = new FormData(e.currentTarget)
+    const formData = new FormData(e.currentTarget);
 
     try {
       await createDeal({
-        name: formData.get("name") as string,
+        name: formData.get('name') as string,
         facilityId: selectedFacilityId || null,
-        primaryContactId: formData.get("primaryContactId") as string || null,
-        stage: formData.get("stage") as string || "lead",
-        value: formData.get("value") as string || null,
-        recurringValue: formData.get("recurringValue") as string || null,
-        probability: formData.get("probability") ? Number(formData.get("probability")) : null,
-        expectedCloseDate: formData.get("expectedCloseDate")
-          ? new Date(formData.get("expectedCloseDate") as string)
+        primaryContactId: (formData.get('primaryContactId') as string) || null,
+        stage: (formData.get('stage') as string) || 'lead',
+        value: (formData.get('value') as string) || null,
+        recurringValue: (formData.get('recurringValue') as string) || null,
+        probability: formData.get('probability') ? Number(formData.get('probability')) : null,
+        expectedCloseDate: formData.get('expectedCloseDate')
+          ? new Date(formData.get('expectedCloseDate') as string)
           : null,
-        nextStep: formData.get("nextStep") as string || null,
-        competitors: formData.get("competitors") as string || null,
-        notes: formData.get("notes") as string || null,
-      })
-      router.push("/pipeline")
+        nextStep: (formData.get('nextStep') as string) || null,
+        competitors: (formData.get('competitors') as string) || null,
+        notes: (formData.get('notes') as string) || null,
+      });
+      router.push('/pipeline');
     } catch (error) {
-      console.error("Failed to create deal:", error)
-      setIsSubmitting(false)
+      console.error('Failed to create deal:', error);
+      setIsSubmitting(false);
     }
   }
 
-  const selectedFacility = facilities.find((f) => f.id === selectedFacilityId)
-  const defaultName = selectedFacility ? `${selectedFacility.name} - Deal` : ""
+  const selectedFacility = facilities.find((f) => f.id === selectedFacilityId);
+  const defaultName = selectedFacility ? `${selectedFacility.name} - Deal` : '';
 
   return (
     <div className="p-8">
@@ -143,7 +136,7 @@ export default function NewDealPage() {
                   <SelectContent>
                     {filteredContacts.map((contact) => (
                       <SelectItem key={contact.id} value={contact.id}>
-                        {contact.name} {contact.title ? `(${contact.title})` : ""}
+                        {contact.name} {contact.title ? `(${contact.title})` : ''}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -158,7 +151,7 @@ export default function NewDealPage() {
                   </SelectTrigger>
                   <SelectContent>
                     {DEAL_STAGES.filter(
-                      (s) => s.value !== "closed_won" && s.value !== "closed_lost"
+                      (s) => s.value !== 'closed_won' && s.value !== 'closed_lost'
                     ).map((stage) => (
                       <SelectItem key={stage.value} value={stage.value}>
                         {stage.label} ({stage.probability}%)
@@ -178,13 +171,7 @@ export default function NewDealPage() {
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="value">Deal Value</Label>
-                  <Input
-                    id="value"
-                    name="value"
-                    type="number"
-                    step="0.01"
-                    placeholder="50000"
-                  />
+                  <Input id="value" name="value" type="number" step="0.01" placeholder="50000" />
                 </div>
 
                 <div className="space-y-2">
@@ -236,11 +223,7 @@ export default function NewDealPage() {
             <CardContent className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="nextStep">Next Step</Label>
-                <Input
-                  id="nextStep"
-                  name="nextStep"
-                  placeholder="Schedule discovery call"
-                />
+                <Input id="nextStep" name="nextStep" placeholder="Schedule discovery call" />
               </div>
 
               <div className="space-y-2">
@@ -258,7 +241,7 @@ export default function NewDealPage() {
 
         <div className="mt-6 flex gap-4">
           <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Creating..." : "Create Deal"}
+            {isSubmitting ? 'Creating...' : 'Create Deal'}
           </Button>
           <Link href="/pipeline">
             <Button type="button" variant="outline">
@@ -268,5 +251,5 @@ export default function NewDealPage() {
         </div>
       </form>
     </div>
-  )
+  );
 }

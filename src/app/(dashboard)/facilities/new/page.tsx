@@ -1,78 +1,123 @@
-"use client"
+'use client';
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { createFacility } from "@/lib/actions/facilities"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { createFacility } from '@/lib/actions/facilities';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowLeft } from "lucide-react"
-import Link from "next/link"
+} from '@/components/ui/select';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
 
 const facilityTypes = [
-  { value: "hospice", label: "Hospice" },
-  { value: "home_health", label: "Home Health" },
-  { value: "palliative", label: "Palliative Care" },
-  { value: "hybrid", label: "Hybrid" },
-]
+  { value: 'hospice', label: 'Hospice' },
+  { value: 'home_health', label: 'Home Health' },
+  { value: 'palliative', label: 'Palliative Care' },
+  { value: 'hybrid', label: 'Hybrid' },
+];
 
 const ownershipTypes = [
-  { value: "for_profit", label: "For-Profit" },
-  { value: "non_profit", label: "Non-Profit" },
-  { value: "hospital_affiliated", label: "Hospital-Affiliated" },
-  { value: "independent", label: "Independent" },
-]
+  { value: 'for_profit', label: 'For-Profit' },
+  { value: 'non_profit', label: 'Non-Profit' },
+  { value: 'hospital_affiliated', label: 'Hospital-Affiliated' },
+  { value: 'independent', label: 'Independent' },
+];
 
 const states = [
-  "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
-  "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
-  "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
-  "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
-  "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY",
-]
+  'AL',
+  'AK',
+  'AZ',
+  'AR',
+  'CA',
+  'CO',
+  'CT',
+  'DE',
+  'FL',
+  'GA',
+  'HI',
+  'ID',
+  'IL',
+  'IN',
+  'IA',
+  'KS',
+  'KY',
+  'LA',
+  'ME',
+  'MD',
+  'MA',
+  'MI',
+  'MN',
+  'MS',
+  'MO',
+  'MT',
+  'NE',
+  'NV',
+  'NH',
+  'NJ',
+  'NM',
+  'NY',
+  'NC',
+  'ND',
+  'OH',
+  'OK',
+  'OR',
+  'PA',
+  'RI',
+  'SC',
+  'SD',
+  'TN',
+  'TX',
+  'UT',
+  'VT',
+  'VA',
+  'WA',
+  'WV',
+  'WI',
+  'WY',
+];
 
 export default function NewFacilityPage() {
-  const router = useRouter()
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    setIsSubmitting(true);
 
-    const formData = new FormData(e.currentTarget)
+    const formData = new FormData(e.currentTarget);
 
     try {
       await createFacility({
-        name: formData.get("name") as string,
-        facilityType: formData.get("facilityType") as string,
-        ownershipType: formData.get("ownershipType") as string || null,
-        censusSize: formData.get("censusSize") ? Number(formData.get("censusSize")) : null,
-        annualRevenue: formData.get("annualRevenue") as string || null,
-        address: formData.get("address") as string || null,
-        city: formData.get("city") as string || null,
-        state: formData.get("state") as string || null,
-        zip: formData.get("zip") as string || null,
-        medicareProviderId: formData.get("medicareProviderId") as string || null,
-        currentSoftware: formData.get("currentSoftware") as string || null,
-        contractRenewalDate: formData.get("contractRenewalDate")
-          ? new Date(formData.get("contractRenewalDate") as string)
+        name: formData.get('name') as string,
+        facilityType: formData.get('facilityType') as string,
+        ownershipType: (formData.get('ownershipType') as string) || null,
+        censusSize: formData.get('censusSize') ? Number(formData.get('censusSize')) : null,
+        annualRevenue: (formData.get('annualRevenue') as string) || null,
+        address: (formData.get('address') as string) || null,
+        city: (formData.get('city') as string) || null,
+        state: (formData.get('state') as string) || null,
+        zip: (formData.get('zip') as string) || null,
+        medicareProviderId: (formData.get('medicareProviderId') as string) || null,
+        currentSoftware: (formData.get('currentSoftware') as string) || null,
+        contractRenewalDate: formData.get('contractRenewalDate')
+          ? new Date(formData.get('contractRenewalDate') as string)
           : null,
-        painPoints: formData.get("painPoints") as string || null,
-        notes: formData.get("notes") as string || null,
-      })
-      router.push("/facilities")
+        painPoints: (formData.get('painPoints') as string) || null,
+        notes: (formData.get('notes') as string) || null,
+      });
+      router.push('/facilities');
     } catch (error) {
-      console.error("Failed to create facility:", error)
-      setIsSubmitting(false)
+      console.error('Failed to create facility:', error);
+      setIsSubmitting(false);
     }
   }
 
@@ -148,11 +193,7 @@ export default function NewFacilityPage() {
 
                 <div className="space-y-2">
                   <Label htmlFor="annualRevenue">Annual Revenue</Label>
-                  <Input
-                    id="annualRevenue"
-                    name="annualRevenue"
-                    placeholder="$5,000,000"
-                  />
+                  <Input id="annualRevenue" name="annualRevenue" placeholder="$5,000,000" />
                 </div>
               </div>
             </CardContent>
@@ -223,11 +264,7 @@ export default function NewFacilityPage() {
 
               <div className="space-y-2">
                 <Label htmlFor="contractRenewalDate">Contract Renewal Date</Label>
-                <Input
-                  id="contractRenewalDate"
-                  name="contractRenewalDate"
-                  type="date"
-                />
+                <Input id="contractRenewalDate" name="contractRenewalDate" type="date" />
               </div>
 
               <div className="space-y-2">
@@ -262,7 +299,7 @@ export default function NewFacilityPage() {
 
         <div className="mt-6 flex gap-4">
           <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Creating..." : "Create Facility"}
+            {isSubmitting ? 'Creating...' : 'Create Facility'}
           </Button>
           <Link href="/facilities">
             <Button type="button" variant="outline">
@@ -272,5 +309,5 @@ export default function NewFacilityPage() {
         </div>
       </form>
     </div>
-  )
+  );
 }

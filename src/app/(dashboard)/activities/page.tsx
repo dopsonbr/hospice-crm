@@ -1,8 +1,8 @@
-import { getActivities } from "@/lib/actions/activities"
-import { ACTIVITY_TYPES, OUTCOMES } from "@/lib/constants"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
+import { getActivities } from '@/lib/actions/activities';
+import { ACTIVITY_TYPES, OUTCOMES } from '@/lib/constants';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
 import {
   Plus,
   Phone,
@@ -14,8 +14,8 @@ import {
   Building2,
   User,
   Briefcase,
-} from "lucide-react"
-import Link from "next/link"
+} from 'lucide-react';
+import Link from 'next/link';
 
 const typeIcons: Record<string, React.ReactNode> = {
   call: <Phone className="h-4 w-4" />,
@@ -24,30 +24,37 @@ const typeIcons: Record<string, React.ReactNode> = {
   demo: <Monitor className="h-4 w-4" />,
   follow_up: <RefreshCw className="h-4 w-4" />,
   other: <MoreHorizontal className="h-4 w-4" />,
-}
+};
 
-const outcomeColors: Record<string, "success" | "secondary" | "destructive"> = {
-  positive: "success",
-  neutral: "secondary",
-  negative: "destructive",
-}
+const outcomeColors: Record<string, 'success' | 'secondary' | 'destructive'> = {
+  positive: 'success',
+  neutral: 'secondary',
+  negative: 'destructive',
+};
 
 export default async function ActivitiesPage() {
-  const activities = await getActivities()
+  const activities = await getActivities();
 
   // Group activities by date
-  const groupedActivities = activities.reduce((groups, activity) => {
-    const date = new Date(activity.occurredAt).toLocaleDateString()
-    if (!groups[date]) {
-      groups[date] = []
-    }
-    groups[date].push(activity)
-    return groups
-  }, {} as Record<string, typeof activities>)
+  const groupedActivities = activities.reduce(
+    (groups, activity) => {
+      const date = new Date(activity.occurredAt).toLocaleDateString();
+      if (!groups[date]) {
+        groups[date] = [];
+      }
+      groups[date].push(activity);
+      return groups;
+    },
+    {} as Record<string, typeof activities>
+  );
 
   const sortedDates = Object.keys(groupedActivities).sort(
     (a, b) => new Date(b).getTime() - new Date(a).getTime()
-  )
+  );
+
+  const now = new Date();
+  const todayStr = now.toLocaleDateString();
+  const yesterdayStr = new Date(now.getTime() - 86400000).toLocaleDateString();
 
   return (
     <div className="p-8">
@@ -68,9 +75,7 @@ export default async function ActivitiesPage() {
 
       {activities.length === 0 ? (
         <Card className="p-12 text-center">
-          <h3 className="text-lg font-medium text-slate-900 dark:text-white">
-            No activities yet
-          </h3>
+          <h3 className="text-lg font-medium text-slate-900 dark:text-white">No activities yet</h3>
           <p className="mt-2 text-slate-600 dark:text-slate-400">
             Start logging your sales activities to build a complete history.
           </p>
@@ -86,16 +91,12 @@ export default async function ActivitiesPage() {
           {sortedDates.map((date) => (
             <div key={date}>
               <h2 className="mb-3 text-sm font-semibold uppercase text-slate-500 dark:text-slate-400">
-                {date === new Date().toLocaleDateString()
-                  ? "Today"
-                  : date === new Date(Date.now() - 86400000).toLocaleDateString()
-                  ? "Yesterday"
-                  : date}
+                {date === todayStr ? 'Today' : date === yesterdayStr ? 'Yesterday' : date}
               </h2>
               <div className="space-y-3">
                 {groupedActivities[date].map((activity) => {
-                  const activityType = ACTIVITY_TYPES.find((t) => t.value === activity.type)
-                  const outcome = OUTCOMES.find((o) => o.value === activity.outcome)
+                  const activityType = ACTIVITY_TYPES.find((t) => t.value === activity.type);
+                  const outcome = OUTCOMES.find((o) => o.value === activity.outcome);
 
                   return (
                     <Card key={activity.id} className="bg-white dark:bg-slate-800">
@@ -115,8 +116,8 @@ export default async function ActivitiesPage() {
                                 <span>•</span>
                                 <span>
                                   {new Date(activity.occurredAt).toLocaleTimeString([], {
-                                    hour: "numeric",
-                                    minute: "2-digit",
+                                    hour: 'numeric',
+                                    minute: '2-digit',
                                   })}
                                 </span>
                                 {activity.duration && (
@@ -171,15 +172,13 @@ export default async function ActivitiesPage() {
                             </div>
 
                             {outcome && (
-                              <Badge variant={outcomeColors[outcome.value]}>
-                                {outcome.label}
-                              </Badge>
+                              <Badge variant={outcomeColors[outcome.value]}>{outcome.label}</Badge>
                             )}
                           </div>
                         </div>
                       </CardContent>
                     </Card>
-                  )
+                  );
                 })}
               </div>
             </div>
@@ -187,5 +186,5 @@ export default async function ActivitiesPage() {
         </div>
       )}
     </div>
-  )
+  );
 }

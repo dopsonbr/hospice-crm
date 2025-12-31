@@ -1,13 +1,13 @@
-'use client'
+'use client';
 
-import { Suspense } from 'react'
-import { useSearchParams } from 'next/navigation'
-import { login, signup } from './actions'
+import { Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { login, signup } from './actions';
 
 function LoginForm() {
-  const searchParams = useSearchParams()
-  const error = searchParams.get('error')
-  const message = searchParams.get('message')
+  const searchParams = useSearchParams();
+  const error = searchParams.get('error');
+  const message = searchParams.get('message');
 
   return (
     <div className="w-full max-w-md space-y-8 rounded-xl bg-white p-8 shadow-lg dark:bg-slate-800">
@@ -30,7 +30,10 @@ function LoginForm() {
 
       <form className="space-y-6">
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-slate-700 dark:text-slate-300"
+          >
             Email
           </label>
           <input
@@ -43,7 +46,10 @@ function LoginForm() {
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-slate-700 dark:text-slate-300">
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-slate-700 dark:text-slate-300"
+          >
             Password
           </label>
           <input
@@ -71,22 +77,24 @@ function LoginForm() {
         </div>
       </form>
     </div>
-  )
+  );
 }
 
 export default function LoginPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-slate-50 dark:bg-slate-900">
-      <Suspense fallback={
-        <div className="w-full max-w-md space-y-8 rounded-xl bg-white p-8 shadow-lg dark:bg-slate-800">
-          <div className="text-center">
-            <h1 className="text-2xl font-bold text-slate-900 dark:text-white">HospicePro CRM</h1>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">Loading...</p>
+      <Suspense
+        fallback={
+          <div className="w-full max-w-md space-y-8 rounded-xl bg-white p-8 shadow-lg dark:bg-slate-800">
+            <div className="text-center">
+              <h1 className="text-2xl font-bold text-slate-900 dark:text-white">HospicePro CRM</h1>
+              <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">Loading...</p>
+            </div>
           </div>
-        </div>
-      }>
+        }
+      >
         <LoginForm />
       </Suspense>
     </div>
-  )
+  );
 }

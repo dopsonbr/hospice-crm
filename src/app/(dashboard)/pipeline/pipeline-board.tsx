@@ -1,46 +1,46 @@
-"use client"
+'use client';
 
-import { useState } from "react"
-import Link from "next/link"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { updateDealStage, type DealWithRelations } from "@/lib/actions/deals"
-import type { DealStage } from "@/lib/constants"
-import { MapPin, DollarSign, GripVertical } from "lucide-react"
+import { useState } from 'react';
+import Link from 'next/link';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { updateDealStage, type DealWithRelations } from '@/lib/actions/deals';
+import type { DealStage } from '@/lib/constants';
+import { MapPin, DollarSign, GripVertical } from 'lucide-react';
 
 type StageWithDeals = {
-  value: string
-  label: string
-  probability: number
-  deals: DealWithRelations[]
-}
+  value: string;
+  label: string;
+  probability: number;
+  deals: DealWithRelations[];
+};
 
 export function PipelineBoard({ stages }: { stages: StageWithDeals[] }) {
-  const [localStages, setLocalStages] = useState(stages)
-  const [draggingDeal, setDraggingDeal] = useState<string | null>(null)
+  const [localStages, setLocalStages] = useState(stages);
+  const [draggingDeal, setDraggingDeal] = useState<string | null>(null);
 
   const handleDragStart = (dealId: string) => {
-    setDraggingDeal(dealId)
-  }
+    setDraggingDeal(dealId);
+  };
 
   const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault()
-  }
+    e.preventDefault();
+  };
 
   const handleDrop = async (e: React.DragEvent, targetStage: string) => {
-    e.preventDefault()
-    if (!draggingDeal) return
+    e.preventDefault();
+    if (!draggingDeal) return;
 
     // Find the deal
-    let deal: DealWithRelations | undefined
+    let deal: DealWithRelations | undefined;
     for (const stage of localStages) {
-      deal = stage.deals.find((d) => d.id === draggingDeal)
-      if (deal) break
+      deal = stage.deals.find((d) => d.id === draggingDeal);
+      if (deal) break;
     }
 
     if (!deal || deal.stage === targetStage) {
-      setDraggingDeal(null)
-      return
+      setDraggingDeal(null);
+      return;
     }
 
     // Optimistically update local state
@@ -52,31 +52,31 @@ export function PipelineBoard({ stages }: { stages: StageWithDeals[] }) {
             ? [...stage.deals, { ...deal!, stage: targetStage }]
             : stage.deals.filter((d) => d.id !== draggingDeal),
       }))
-    )
+    );
 
-    setDraggingDeal(null)
+    setDraggingDeal(null);
 
     // Update on server
     try {
-      await updateDealStage(draggingDeal, targetStage as DealStage)
+      await updateDealStage(draggingDeal, targetStage as DealStage);
     } catch (error) {
-      console.error("Failed to update deal stage:", error)
+      console.error('Failed to update deal stage:', error);
       // Revert on error
-      setLocalStages(stages)
+      setLocalStages(stages);
     }
-  }
+  };
 
   const formatCurrency = (value: string | null) => {
-    if (!value) return null
-    const num = Number(value)
-    if (num >= 1000000) return `$${(num / 1000000).toFixed(1)}M`
-    if (num >= 1000) return `$${(num / 1000).toFixed(0)}K`
-    return `$${num.toLocaleString()}`
-  }
+    if (!value) return null;
+    const num = Number(value);
+    if (num >= 1000000) return `$${(num / 1000000).toFixed(1)}M`;
+    if (num >= 1000) return `$${(num / 1000).toFixed(0)}K`;
+    return `$${num.toLocaleString()}`;
+  };
 
   const calculateStageValue = (deals: DealWithRelations[]) => {
-    return deals.reduce((sum, deal) => sum + Number(deal.value ?? 0), 0)
-  }
+    return deals.reduce((sum, deal) => sum + Number(deal.value ?? 0), 0);
+  };
 
   return (
     <div className="flex gap-4" style={{ minWidth: `${stages.length * 300}px` }}>
@@ -89,15 +89,13 @@ export function PipelineBoard({ stages }: { stages: StageWithDeals[] }) {
         >
           <div className="mb-3 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <h3 className="font-semibold text-slate-900 dark:text-white">
-                {stage.label}
-              </h3>
+              <h3 className="font-semibold text-slate-900 dark:text-white">{stage.label}</h3>
               <Badge variant="secondary" className="text-xs">
                 {stage.deals.length}
               </Badge>
             </div>
             <span className="text-sm text-slate-500 dark:text-slate-400">
-              {formatCurrency(String(calculateStageValue(stage.deals))) || "$0"}
+              {formatCurrency(String(calculateStageValue(stage.deals))) || '$0'}
             </span>
           </div>
 
@@ -108,7 +106,7 @@ export function PipelineBoard({ stages }: { stages: StageWithDeals[] }) {
                 draggable
                 onDragStart={() => handleDragStart(deal.id)}
                 className={`cursor-grab bg-white transition-all hover:shadow-md dark:bg-slate-800 ${
-                  draggingDeal === deal.id ? "opacity-50" : ""
+                  draggingDeal === deal.id ? 'opacity-50' : ''
                 }`}
               >
                 <CardContent className="p-4">
@@ -159,5 +157,5 @@ export function PipelineBoard({ stages }: { stages: StageWithDeals[] }) {
         </div>
       ))}
     </div>
-  )
+  );
 }

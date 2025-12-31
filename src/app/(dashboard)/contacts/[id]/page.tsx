@@ -1,46 +1,42 @@
-import { notFound } from "next/navigation"
-import Link from "next/link"
-import { getContact, deleteContact } from "@/lib/actions/contacts"
-import { getFacility } from "@/lib/actions/facilities"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowLeft, Edit, Trash2, Phone, Mail, MessageSquare, ExternalLink } from "lucide-react"
-import { redirect } from "next/navigation"
+import { notFound } from 'next/navigation';
+import Link from 'next/link';
+import { getContact, deleteContact } from '@/lib/actions/contacts';
+import { getFacility } from '@/lib/actions/facilities';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ArrowLeft, Edit, Trash2, Phone, Mail, MessageSquare, ExternalLink } from 'lucide-react';
+import { redirect } from 'next/navigation';
 
 const buyerRoleLabels: Record<string, string> = {
-  decision_maker: "Decision Maker",
-  influencer: "Influencer",
-  champion: "Champion",
-  blocker: "Blocker",
-  end_user: "End User",
-}
+  decision_maker: 'Decision Maker',
+  influencer: 'Influencer',
+  champion: 'Champion',
+  blocker: 'Blocker',
+  end_user: 'End User',
+};
 
 const preferredContactLabels: Record<string, string> = {
-  email: "Email",
-  phone: "Phone",
-  text: "Text",
-  in_person: "In-Person",
-}
+  email: 'Email',
+  phone: 'Phone',
+  text: 'Text',
+  in_person: 'In-Person',
+};
 
-export default async function ContactDetailPage({
-  params,
-}: {
-  params: Promise<{ id: string }>
-}) {
-  const { id } = await params
-  const contact = await getContact(id)
+export default async function ContactDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const contact = await getContact(id);
 
   if (!contact) {
-    notFound()
+    notFound();
   }
 
-  const facility = contact.facilityId ? await getFacility(contact.facilityId) : null
+  const facility = contact.facilityId ? await getFacility(contact.facilityId) : null;
 
   async function handleDelete() {
-    "use server"
-    await deleteContact(id)
-    redirect("/contacts")
+    'use server';
+    await deleteContact(id);
+    redirect('/contacts');
   }
 
   return (
@@ -56,9 +52,7 @@ export default async function ContactDetailPage({
 
         <div className="flex items-start justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
-              {contact.name}
-            </h1>
+            <h1 className="text-2xl font-bold text-slate-900 dark:text-white">{contact.name}</h1>
             <div className="mt-2 flex flex-wrap items-center gap-2">
               {contact.title && (
                 <span className="text-slate-600 dark:text-slate-400">{contact.title}</span>
@@ -156,8 +150,8 @@ export default async function ContactDetailPage({
                 </dt>
                 <dd className="text-slate-900 dark:text-white">
                   {contact.preferredContact
-                    ? preferredContactLabels[contact.preferredContact] ?? contact.preferredContact
-                    : "-"}
+                    ? (preferredContactLabels[contact.preferredContact] ?? contact.preferredContact)
+                    : '-'}
                 </dd>
               </div>
               <div>
@@ -167,13 +161,11 @@ export default async function ContactDetailPage({
                 <dd className="text-slate-900 dark:text-white">
                   {contact.lastContactAt
                     ? new Date(contact.lastContactAt).toLocaleDateString()
-                    : "Never"}
+                    : 'Never'}
                 </dd>
               </div>
               <div>
-                <dt className="text-sm font-medium text-slate-500 dark:text-slate-400">
-                  Added
-                </dt>
+                <dt className="text-sm font-medium text-slate-500 dark:text-slate-400">Added</dt>
                 <dd className="text-slate-900 dark:text-white">
                   {new Date(contact.createdAt).toLocaleDateString()}
                 </dd>
@@ -188,7 +180,7 @@ export default async function ContactDetailPage({
           </CardHeader>
           <CardContent>
             <p className="whitespace-pre-wrap text-slate-600 dark:text-slate-400">
-              {contact.notes ?? "No notes yet."}
+              {contact.notes ?? 'No notes yet.'}
             </p>
           </CardContent>
         </Card>
@@ -230,5 +222,5 @@ export default async function ContactDetailPage({
         </Card>
       </div>
     </div>
-  )
+  );
 }
