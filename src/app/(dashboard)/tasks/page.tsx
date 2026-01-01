@@ -57,7 +57,9 @@ export default async function TasksPage() {
             <div className="min-w-0 flex-1">
               <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm font-medium text-slate-900 dark:text-white sm:text-base">{task.description}</p>
+                  <p className="text-sm font-medium text-slate-900 dark:text-white sm:text-base">
+                    {task.description}
+                  </p>
                   <div className="mt-1 flex flex-wrap items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 sm:gap-2 sm:text-sm">
                     {taskType && <span>{taskType.label}</span>}
                     {task.facility && (

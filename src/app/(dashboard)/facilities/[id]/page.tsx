@@ -67,7 +67,9 @@ export default async function FacilityDetailPage({ params }: { params: Promise<{
 
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <h1 className="text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">{facility.name}</h1>
+            <h1 className="text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">
+              {facility.name}
+            </h1>
             <div className="mt-2 flex flex-wrap items-center gap-2">
               <Badge variant="secondary">
                 {facilityTypeLabels[facility.facilityType] ?? facility.facilityType}
@@ -105,7 +107,9 @@ export default async function FacilityDetailPage({ params }: { params: Promise<{
                 <dt className="text-xs font-medium text-slate-500 dark:text-slate-400 sm:text-sm">
                   Census Size
                 </dt>
-                <dd className="text-sm text-slate-900 dark:text-white sm:text-base">{facility.censusSize ?? '-'}</dd>
+                <dd className="text-sm text-slate-900 dark:text-white sm:text-base">
+                  {facility.censusSize ?? '-'}
+                </dd>
               </div>
               <div>
                 <dt className="text-xs font-medium text-slate-500 dark:text-slate-400 sm:text-sm">
@@ -144,8 +148,12 @@ export default async function FacilityDetailPage({ params }: { params: Promise<{
           <CardContent className="p-4 pt-0 sm:p-6 sm:pt-0">
             <dl className="space-y-3 sm:space-y-4">
               <div>
-                <dt className="text-xs font-medium text-slate-500 dark:text-slate-400 sm:text-sm">Address</dt>
-                <dd className="text-sm text-slate-900 dark:text-white sm:text-base">{facility.address ?? '-'}</dd>
+                <dt className="text-xs font-medium text-slate-500 dark:text-slate-400 sm:text-sm">
+                  Address
+                </dt>
+                <dd className="text-sm text-slate-900 dark:text-white sm:text-base">
+                  {facility.address ?? '-'}
+                </dd>
               </div>
               <div>
                 <dt className="text-xs font-medium text-slate-500 dark:text-slate-400 sm:text-sm">
@@ -236,7 +244,9 @@ export default async function FacilityDetailPage({ params }: { params: Promise<{
                           {contact.name}
                         </Link>
                         {contact.title && (
-                          <p className="text-sm text-slate-600 dark:text-slate-400">{contact.title}</p>
+                          <p className="text-sm text-slate-600 dark:text-slate-400">
+                            {contact.title}
+                          </p>
                         )}
                       </div>
                       {contact.buyerRole && (

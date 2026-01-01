@@ -131,7 +131,9 @@ export default function NewFacilityForm() {
           <ArrowLeft className="h-4 w-4" />
           Back to Facilities
         </Link>
-        <h1 className="text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">Add New Facility</h1>
+        <h1 className="text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">
+          Add New Facility
+        </h1>
       </div>
 
       <form onSubmit={handleSubmit}>

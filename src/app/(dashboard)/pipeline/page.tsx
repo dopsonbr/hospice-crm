@@ -21,8 +21,12 @@ export default async function PipelinePage() {
       <div className="border-b border-slate-200 bg-white px-4 py-4 dark:border-slate-700 dark:bg-slate-800 sm:px-6 sm:py-5 lg:px-8 lg:py-6">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">Pipeline</h1>
-            <p className="text-sm text-slate-600 dark:text-slate-400 sm:text-base">Manage your sales opportunities</p>
+            <h1 className="text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">
+              Pipeline
+            </h1>
+            <p className="text-sm text-slate-600 dark:text-slate-400 sm:text-base">
+              Manage your sales opportunities
+            </p>
           </div>
           <Link href="/pipeline/new" className="self-start sm:self-auto">
             <Button size="sm" className="sm:size-default">

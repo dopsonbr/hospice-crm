@@ -60,7 +60,9 @@ export default async function ActivitiesPage() {
     <div className="p-4 sm:p-6 lg:p-8">
       <div className="mb-4 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">Activities</h1>
+          <h1 className="text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">
+            Activities
+          </h1>
           <p className="text-sm text-slate-600 dark:text-slate-400 sm:text-base">
             Log and track all your sales touchpoints
           </p>
@@ -173,7 +175,10 @@ export default async function ActivitiesPage() {
                               </div>
 
                               {outcome && (
-                                <Badge variant={outcomeColors[outcome.value]} className="shrink-0 text-xs">
+                                <Badge
+                                  variant={outcomeColors[outcome.value]}
+                                  className="shrink-0 text-xs"
+                                >
                                   {outcome.label}
                                 </Badge>
                               )}

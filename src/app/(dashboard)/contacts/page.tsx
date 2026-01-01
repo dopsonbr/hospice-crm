@@ -81,11 +81,16 @@ export default async function ContactsPage() {
                         {contact.name}
                       </Link>
                       {contact.title && (
-                        <p className="text-sm text-slate-600 dark:text-slate-400">{contact.title}</p>
+                        <p className="text-sm text-slate-600 dark:text-slate-400">
+                          {contact.title}
+                        </p>
                       )}
                     </div>
                     {contact.buyerRole && (
-                      <Badge variant={buyerRoleColors[contact.buyerRole] ?? 'secondary'} className="shrink-0">
+                      <Badge
+                        variant={buyerRoleColors[contact.buyerRole] ?? 'secondary'}
+                        className="shrink-0"
+                      >
                         {buyerRoleLabels[contact.buyerRole] ?? contact.buyerRole}
                       </Badge>
                     )}
@@ -106,7 +111,9 @@ export default async function ContactsPage() {
                     {contact.lastContactAt && (
                       <div className="flex items-center gap-2">
                         <Calendar className="h-3.5 w-3.5 shrink-0" />
-                        <span>Last contact: {new Date(contact.lastContactAt).toLocaleDateString()}</span>
+                        <span>
+                          Last contact: {new Date(contact.lastContactAt).toLocaleDateString()}
+                        </span>
                       </div>
                     )}
                   </div>

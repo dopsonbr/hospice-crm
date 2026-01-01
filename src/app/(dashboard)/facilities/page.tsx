@@ -27,7 +27,9 @@ export default async function FacilitiesPage() {
     <div className="p-4 sm:p-6 lg:p-8">
       <div className="mb-4 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">Facilities</h1>
+          <h1 className="text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">
+            Facilities
+          </h1>
           <p className="text-sm text-slate-600 dark:text-slate-400 sm:text-base">
             Manage your hospice organization accounts
           </p>
@@ -98,7 +100,9 @@ export default async function FacilitiesPage() {
                     {facility.contractRenewalDate && (
                       <div className="flex items-center gap-2">
                         <Calendar className="h-3.5 w-3.5 shrink-0" />
-                        <span>Renewal: {new Date(facility.contractRenewalDate).toLocaleDateString()}</span>
+                        <span>
+                          Renewal: {new Date(facility.contractRenewalDate).toLocaleDateString()}
+                        </span>
                       </div>
                     )}
                   </div>

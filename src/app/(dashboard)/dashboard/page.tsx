@@ -55,7 +55,9 @@ export default async function DashboardPage() {
     <div className="p-4 sm:p-6 lg:p-8">
       <div className="mb-6 lg:mb-8">
         <h1 className="text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">Dashboard</h1>
-        <p className="text-sm text-slate-600 dark:text-slate-400 sm:text-base">Your sales pipeline at a glance</p>
+        <p className="text-sm text-slate-600 dark:text-slate-400 sm:text-base">
+          Your sales pipeline at a glance
+        </p>
       </div>
 
       {/* Stats Grid */}
@@ -70,7 +72,9 @@ export default async function DashboardPage() {
                 <p className="text-lg font-bold text-slate-900 dark:text-white sm:text-2xl">
                   {formatCurrency(stats.pipelineValue)}
                 </p>
-                <p className="truncate text-xs text-slate-500 dark:text-slate-400 sm:text-sm">Pipeline Value</p>
+                <p className="truncate text-xs text-slate-500 dark:text-slate-400 sm:text-sm">
+                  Pipeline Value
+                </p>
               </div>
             </div>
           </CardContent>
@@ -86,7 +90,9 @@ export default async function DashboardPage() {
                 <p className="text-lg font-bold text-slate-900 dark:text-white sm:text-2xl">
                   {stats.activeDeals}
                 </p>
-                <p className="truncate text-xs text-slate-500 dark:text-slate-400 sm:text-sm">Active Deals</p>
+                <p className="truncate text-xs text-slate-500 dark:text-slate-400 sm:text-sm">
+                  Active Deals
+                </p>
               </div>
             </div>
           </CardContent>
@@ -102,7 +108,9 @@ export default async function DashboardPage() {
                 <p className="text-lg font-bold text-slate-900 dark:text-white sm:text-2xl">
                   {stats.facilitiesCount}
                 </p>
-                <p className="truncate text-xs text-slate-500 dark:text-slate-400 sm:text-sm">Facilities</p>
+                <p className="truncate text-xs text-slate-500 dark:text-slate-400 sm:text-sm">
+                  Facilities
+                </p>
               </div>
             </div>
           </CardContent>
@@ -118,7 +126,9 @@ export default async function DashboardPage() {
                 <p className="text-lg font-bold text-slate-900 dark:text-white sm:text-2xl">
                   {stats.tasksDueToday}
                 </p>
-                <p className="truncate text-xs text-slate-500 dark:text-slate-400 sm:text-sm">Tasks Due Today</p>
+                <p className="truncate text-xs text-slate-500 dark:text-slate-400 sm:text-sm">
+                  Tasks Due Today
+                </p>
               </div>
             </div>
           </CardContent>
@@ -137,7 +147,9 @@ export default async function DashboardPage() {
                 <p className="text-base font-bold text-slate-900 dark:text-white sm:text-xl">
                   {formatCurrency(stats.closedThisMonth)}
                 </p>
-                <p className="truncate text-xs text-slate-500 dark:text-slate-400 sm:text-sm">Closed This Month</p>
+                <p className="truncate text-xs text-slate-500 dark:text-slate-400 sm:text-sm">
+                  Closed This Month
+                </p>
               </div>
             </div>
           </CardContent>
@@ -150,8 +162,12 @@ export default async function DashboardPage() {
                 <Target className="h-4 w-4 text-indigo-600 dark:text-indigo-400 sm:h-5 sm:w-5" />
               </div>
               <div className="min-w-0">
-                <p className="text-base font-bold text-slate-900 dark:text-white sm:text-xl">{stats.winRate}%</p>
-                <p className="truncate text-xs text-slate-500 dark:text-slate-400 sm:text-sm">Win Rate (90 days)</p>
+                <p className="text-base font-bold text-slate-900 dark:text-white sm:text-xl">
+                  {stats.winRate}%
+                </p>
+                <p className="truncate text-xs text-slate-500 dark:text-slate-400 sm:text-sm">
+                  Win Rate (90 days)
+                </p>
               </div>
             </div>
           </CardContent>
@@ -292,14 +308,18 @@ export default async function DashboardPage() {
                 {recentActivities.map((activity) => (
                   <div key={activity.id} className="flex items-start gap-2.5 sm:gap-3">
                     <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300 sm:h-8 sm:w-8">
-                      {typeIcons[activity.type] || <MoreHorizontal className="h-3.5 w-3.5 sm:h-4 sm:w-4" />}
+                      {typeIcons[activity.type] || (
+                        <MoreHorizontal className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                      )}
                     </div>
                     <div className="min-w-0 flex-1">
                       <p className="text-sm font-medium text-slate-900 dark:text-white sm:text-base">
                         {activity.subject}
                       </p>
                       <div className="flex flex-wrap items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 sm:gap-2 sm:text-sm">
-                        {activity.facility && <span className="truncate">{activity.facility.name}</span>}
+                        {activity.facility && (
+                          <span className="truncate">{activity.facility.name}</span>
+                        )}
                         {activity.facility && <span>•</span>}
                         <span>{new Date(activity.occurredAt).toLocaleDateString()}</span>
                       </div>

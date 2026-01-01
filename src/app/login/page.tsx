@@ -15,8 +15,12 @@ function LoginForm() {
         <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-teal-600 text-white font-bold text-sm sm:mb-4 sm:h-12 sm:w-12 sm:text-base">
           HP
         </div>
-        <h1 className="text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">HospicePro CRM</h1>
-        <p className="mt-1 text-sm text-slate-600 dark:text-slate-400 sm:mt-2">Sign in to your account</p>
+        <h1 className="text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">
+          HospicePro CRM
+        </h1>
+        <p className="mt-1 text-sm text-slate-600 dark:text-slate-400 sm:mt-2">
+          Sign in to your account
+        </p>
       </div>
 
       {error && (
@@ -93,7 +97,9 @@ export default function LoginPage() {
               <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-teal-600 text-white font-bold text-sm sm:mb-4 sm:h-12 sm:w-12 sm:text-base">
                 HP
               </div>
-              <h1 className="text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">HospicePro CRM</h1>
+              <h1 className="text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">
+                HospicePro CRM
+              </h1>
               <p className="mt-1 text-sm text-slate-600 dark:text-slate-400 sm:mt-2">Loading...</p>
             </div>
           </div>
