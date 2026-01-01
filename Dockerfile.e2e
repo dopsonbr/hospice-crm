@@ -1,0 +1,17 @@
+# E2E test Dockerfile using Playwright's official image
+# Use version matching @playwright/test in package.json
+FROM mcr.microsoft.com/playwright:v1.57.0-noble
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci
+
+# Copy source code and config files
+COPY . .
+
+# Default command runs e2e tests
+CMD ["npm", "run", "test:e2e"]
