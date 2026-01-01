@@ -122,25 +122,27 @@ export default function NewFacilityForm() {
   }
 
   return (
-    <div className="p-8">
-      <div className="mb-6">
+    <div className="p-4 sm:p-6 lg:p-8">
+      <div className="mb-4 sm:mb-6">
         <Link
           href="/facilities"
-          className="mb-4 inline-flex items-center gap-2 text-sm text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+          className="mb-3 inline-flex items-center gap-2 text-sm text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white sm:mb-4"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to Facilities
         </Link>
-        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Add New Facility</h1>
+        <h1 className="text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">
+          Add New Facility
+        </h1>
       </div>
 
       <form onSubmit={handleSubmit}>
-        <div className="grid gap-6 lg:grid-cols-2">
+        <div className="grid gap-4 sm:gap-6 lg:grid-cols-2">
           <Card>
-            <CardHeader>
-              <CardTitle>Basic Information</CardTitle>
+            <CardHeader className="p-4 sm:p-6">
+              <CardTitle className="text-base sm:text-lg">Basic Information</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-4 p-4 pt-0 sm:p-6 sm:pt-0">
               <div className="space-y-2">
                 <Label htmlFor="name">Facility Name *</Label>
                 <Input id="name" name="name" required placeholder="Sunshine Hospice" />
@@ -200,17 +202,17 @@ export default function NewFacilityForm() {
           </Card>
 
           <Card>
-            <CardHeader>
-              <CardTitle>Location</CardTitle>
+            <CardHeader className="p-4 sm:p-6">
+              <CardTitle className="text-base sm:text-lg">Location</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-4 p-4 pt-0 sm:p-6 sm:pt-0">
               <div className="space-y-2">
                 <Label htmlFor="address">Address</Label>
                 <Input id="address" name="address" placeholder="123 Main Street" />
               </div>
 
-              <div className="grid gap-4 sm:grid-cols-3">
-                <div className="space-y-2">
+              <div className="grid gap-4 grid-cols-2 sm:grid-cols-3">
+                <div className="space-y-2 col-span-2 sm:col-span-1">
                   <Label htmlFor="city">City</Label>
                   <Input id="city" name="city" placeholder="Austin" />
                 </div>
@@ -249,10 +251,10 @@ export default function NewFacilityForm() {
           </Card>
 
           <Card>
-            <CardHeader>
-              <CardTitle>Competitive Intelligence</CardTitle>
+            <CardHeader className="p-4 sm:p-6">
+              <CardTitle className="text-base sm:text-lg">Competitive Intelligence</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-4 p-4 pt-0 sm:p-6 sm:pt-0">
               <div className="space-y-2">
                 <Label htmlFor="currentSoftware">Current Software</Label>
                 <Input
@@ -280,10 +282,10 @@ export default function NewFacilityForm() {
           </Card>
 
           <Card>
-            <CardHeader>
-              <CardTitle>Notes</CardTitle>
+            <CardHeader className="p-4 sm:p-6">
+              <CardTitle className="text-base sm:text-lg">Notes</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-4 pt-0 sm:p-6 sm:pt-0">
               <div className="space-y-2">
                 <Label htmlFor="notes">Additional Notes</Label>
                 <Textarea
@@ -297,15 +299,15 @@ export default function NewFacilityForm() {
           </Card>
         </div>
 
-        <div className="mt-6 flex gap-4">
-          <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? 'Creating...' : 'Create Facility'}
-          </Button>
-          <Link href="/facilities">
-            <Button type="button" variant="outline">
+        <div className="mt-4 flex flex-col-reverse gap-3 sm:mt-6 sm:flex-row sm:gap-4">
+          <Link href="/facilities" className="w-full sm:w-auto">
+            <Button type="button" variant="outline" className="w-full sm:w-auto">
               Cancel
             </Button>
           </Link>
+          <Button type="submit" disabled={isSubmitting} className="w-full sm:w-auto">
+            {isSubmitting ? 'Creating...' : 'Create Facility'}
+          </Button>
         </div>
       </form>
     </div>

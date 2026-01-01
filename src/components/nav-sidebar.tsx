@@ -10,9 +10,13 @@ import {
   CheckSquare,
   Activity,
   LogOut,
+  Menu,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { signOut } from '@/app/login/actions';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Button } from '@/components/ui/button';
+import { useState } from 'react';
 
 const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -23,20 +27,11 @@ const navItems = [
   { href: '/activities', label: 'Activities', icon: Activity },
 ];
 
-export function NavSidebar({ userEmail }: { userEmail: string }) {
+function NavContent({ userEmail, onNavigate }: { userEmail: string; onNavigate?: () => void }) {
   const pathname = usePathname();
 
   return (
-    <aside className="flex h-screen w-64 flex-col border-r border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800">
-      <div className="flex h-16 items-center border-b border-slate-200 px-6 dark:border-slate-700">
-        <Link href="/dashboard" className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-600 text-white font-bold text-sm">
-            HP
-          </div>
-          <span className="text-lg font-semibold text-slate-900 dark:text-white">HospicePro</span>
-        </Link>
-      </div>
-
+    <>
       <nav className="flex-1 space-y-1 px-3 py-4">
         {navItems.map((item) => {
           const Icon = item.icon;
@@ -45,6 +40,7 @@ export function NavSidebar({ userEmail }: { userEmail: string }) {
             <Link
               key={item.href}
               href={item.href}
+              onClick={onNavigate}
               className={cn(
                 'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
                 isActive
@@ -71,6 +67,52 @@ export function NavSidebar({ userEmail }: { userEmail: string }) {
           </button>
         </form>
       </div>
+    </>
+  );
+}
+
+function Logo() {
+  return (
+    <Link href="/dashboard" className="flex items-center gap-2">
+      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-600 text-white font-bold text-sm">
+        HP
+      </div>
+      <span className="text-lg font-semibold text-slate-900 dark:text-white">HospicePro</span>
+    </Link>
+  );
+}
+
+export function MobileHeader({ userEmail }: { userEmail: string }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <header className="flex h-14 items-center justify-between border-b border-slate-200 bg-white px-4 dark:border-slate-700 dark:bg-slate-800 lg:hidden">
+      <Logo />
+      <Sheet open={open} onOpenChange={setOpen}>
+        <SheetTrigger asChild>
+          <Button variant="ghost" size="icon" className="lg:hidden">
+            <Menu className="h-5 w-5" />
+            <span className="sr-only">Toggle menu</span>
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="left" className="flex w-72 flex-col p-0">
+          <div className="flex h-14 items-center border-b border-slate-200 px-6 dark:border-slate-700">
+            <Logo />
+          </div>
+          <NavContent userEmail={userEmail} onNavigate={() => setOpen(false)} />
+        </SheetContent>
+      </Sheet>
+    </header>
+  );
+}
+
+export function NavSidebar({ userEmail }: { userEmail: string }) {
+  return (
+    <aside className="hidden h-screen w-64 flex-col border-r border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800 lg:flex">
+      <div className="flex h-16 items-center border-b border-slate-200 px-6 dark:border-slate-700">
+        <Logo />
+      </div>
+      <NavContent userEmail={userEmail} />
     </aside>
   );
 }

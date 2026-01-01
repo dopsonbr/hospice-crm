@@ -52,73 +52,83 @@ export default async function DashboardPage() {
   const maxPipelineValue = Math.max(...pipelineStages.map((s) => s.value), 1);
 
   return (
-    <div className="p-8">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Dashboard</h1>
-        <p className="text-slate-600 dark:text-slate-400">Your sales pipeline at a glance</p>
+    <div className="p-4 sm:p-6 lg:p-8">
+      <div className="mb-6 lg:mb-8">
+        <h1 className="text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">Dashboard</h1>
+        <p className="text-sm text-slate-600 dark:text-slate-400 sm:text-base">
+          Your sales pipeline at a glance
+        </p>
       </div>
 
       {/* Stats Grid */}
-      <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mb-6 grid gap-3 grid-cols-2 lg:grid-cols-4 lg:mb-8 lg:gap-4">
         <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-teal-100 dark:bg-teal-900/30">
-                <DollarSign className="h-6 w-6 text-teal-600 dark:text-teal-400" />
+          <CardContent className="p-4 sm:pt-6">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-teal-100 dark:bg-teal-900/30 sm:h-12 sm:w-12">
+                <DollarSign className="h-5 w-5 text-teal-600 dark:text-teal-400 sm:h-6 sm:w-6" />
               </div>
-              <div>
-                <p className="text-2xl font-bold text-slate-900 dark:text-white">
+              <div className="min-w-0">
+                <p className="text-lg font-bold text-slate-900 dark:text-white sm:text-2xl">
                   {formatCurrency(stats.pipelineValue)}
                 </p>
-                <p className="text-sm text-slate-500 dark:text-slate-400">Pipeline Value</p>
+                <p className="truncate text-xs text-slate-500 dark:text-slate-400 sm:text-sm">
+                  Pipeline Value
+                </p>
               </div>
             </div>
           </CardContent>
         </Card>
 
         <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30">
-                <Briefcase className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+          <CardContent className="p-4 sm:pt-6">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30 sm:h-12 sm:w-12">
+                <Briefcase className="h-5 w-5 text-blue-600 dark:text-blue-400 sm:h-6 sm:w-6" />
               </div>
-              <div>
-                <p className="text-2xl font-bold text-slate-900 dark:text-white">
+              <div className="min-w-0">
+                <p className="text-lg font-bold text-slate-900 dark:text-white sm:text-2xl">
                   {stats.activeDeals}
                 </p>
-                <p className="text-sm text-slate-500 dark:text-slate-400">Active Deals</p>
+                <p className="truncate text-xs text-slate-500 dark:text-slate-400 sm:text-sm">
+                  Active Deals
+                </p>
               </div>
             </div>
           </CardContent>
         </Card>
 
         <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900/30">
-                <Building2 className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+          <CardContent className="p-4 sm:pt-6">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900/30 sm:h-12 sm:w-12">
+                <Building2 className="h-5 w-5 text-purple-600 dark:text-purple-400 sm:h-6 sm:w-6" />
               </div>
-              <div>
-                <p className="text-2xl font-bold text-slate-900 dark:text-white">
+              <div className="min-w-0">
+                <p className="text-lg font-bold text-slate-900 dark:text-white sm:text-2xl">
                   {stats.facilitiesCount}
                 </p>
-                <p className="text-sm text-slate-500 dark:text-slate-400">Facilities</p>
+                <p className="truncate text-xs text-slate-500 dark:text-slate-400 sm:text-sm">
+                  Facilities
+                </p>
               </div>
             </div>
           </CardContent>
         </Card>
 
         <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-100 dark:bg-orange-900/30">
-                <CheckSquare className="h-6 w-6 text-orange-600 dark:text-orange-400" />
+          <CardContent className="p-4 sm:pt-6">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-orange-100 dark:bg-orange-900/30 sm:h-12 sm:w-12">
+                <CheckSquare className="h-5 w-5 text-orange-600 dark:text-orange-400 sm:h-6 sm:w-6" />
               </div>
-              <div>
-                <p className="text-2xl font-bold text-slate-900 dark:text-white">
+              <div className="min-w-0">
+                <p className="text-lg font-bold text-slate-900 dark:text-white sm:text-2xl">
                   {stats.tasksDueToday}
                 </p>
-                <p className="text-sm text-slate-500 dark:text-slate-400">Tasks Due Today</p>
+                <p className="truncate text-xs text-slate-500 dark:text-slate-400 sm:text-sm">
+                  Tasks Due Today
+                </p>
               </div>
             </div>
           </CardContent>
@@ -126,43 +136,49 @@ export default async function DashboardPage() {
       </div>
 
       {/* Secondary Stats */}
-      <div className="mb-8 grid gap-4 sm:grid-cols-2">
+      <div className="mb-6 grid gap-3 grid-cols-2 lg:mb-8 lg:gap-4">
         <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center gap-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
-                <TrendingUp className="h-5 w-5 text-green-600 dark:text-green-400" />
+          <CardContent className="p-4 sm:pt-6">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30 sm:h-10 sm:w-10">
+                <TrendingUp className="h-4 w-4 text-green-600 dark:text-green-400 sm:h-5 sm:w-5" />
               </div>
-              <div>
-                <p className="text-xl font-bold text-slate-900 dark:text-white">
+              <div className="min-w-0">
+                <p className="text-base font-bold text-slate-900 dark:text-white sm:text-xl">
                   {formatCurrency(stats.closedThisMonth)}
                 </p>
-                <p className="text-sm text-slate-500 dark:text-slate-400">Closed This Month</p>
+                <p className="truncate text-xs text-slate-500 dark:text-slate-400 sm:text-sm">
+                  Closed This Month
+                </p>
               </div>
             </div>
           </CardContent>
         </Card>
 
         <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center gap-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-900/30">
-                <Target className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
+          <CardContent className="p-4 sm:pt-6">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-900/30 sm:h-10 sm:w-10">
+                <Target className="h-4 w-4 text-indigo-600 dark:text-indigo-400 sm:h-5 sm:w-5" />
               </div>
-              <div>
-                <p className="text-xl font-bold text-slate-900 dark:text-white">{stats.winRate}%</p>
-                <p className="text-sm text-slate-500 dark:text-slate-400">Win Rate (90 days)</p>
+              <div className="min-w-0">
+                <p className="text-base font-bold text-slate-900 dark:text-white sm:text-xl">
+                  {stats.winRate}%
+                </p>
+                <p className="truncate text-xs text-slate-500 dark:text-slate-400 sm:text-sm">
+                  Win Rate (90 days)
+                </p>
               </div>
             </div>
           </CardContent>
         </Card>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-4 lg:grid-cols-2 lg:gap-6">
         {/* Pipeline Overview */}
         <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center justify-between">
+          <CardHeader className="p-4 pb-2 sm:p-6 sm:pb-2">
+            <CardTitle className="flex items-center justify-between text-base sm:text-lg">
               Pipeline Overview
               <Link
                 href="/pipeline"
@@ -172,24 +188,24 @@ export default async function DashboardPage() {
               </Link>
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-4 pt-2 sm:p-6 sm:pt-2">
             {pipelineStages.length === 0 ? (
-              <p className="text-center text-slate-500 dark:text-slate-400 py-8">
+              <p className="text-center text-slate-500 dark:text-slate-400 py-6 sm:py-8">
                 No active deals yet.{' '}
                 <Link href="/pipeline/new" className="text-teal-600 hover:text-teal-700">
                   Create your first deal
                 </Link>
               </p>
             ) : (
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {pipelineStages.map((stage) => (
                   <div key={stage.stage}>
-                    <div className="mb-1 flex items-center justify-between text-sm">
+                    <div className="mb-1 flex items-center justify-between text-xs sm:text-sm">
                       <span className="font-medium text-slate-700 dark:text-slate-300">
                         {stage.label}
                       </span>
                       <span className="text-slate-500 dark:text-slate-400">
-                        {stage.count} deals · {formatCurrency(stage.value)}
+                        {stage.count} · {formatCurrency(stage.value)}
                       </span>
                     </div>
                     <div className="h-2 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-700">
@@ -207,8 +223,8 @@ export default async function DashboardPage() {
 
         {/* Today's Tasks */}
         <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center justify-between">
+          <CardHeader className="p-4 pb-2 sm:p-6 sm:pb-2">
+            <CardTitle className="flex items-center justify-between text-base sm:text-lg">
               Today&apos;s Tasks
               <Link
                 href="/tasks"
@@ -218,44 +234,46 @@ export default async function DashboardPage() {
               </Link>
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-4 pt-2 sm:p-6 sm:pt-2">
             {todaysTasks.length === 0 ? (
-              <p className="text-center text-slate-500 dark:text-slate-400 py-8">
+              <p className="text-center text-slate-500 dark:text-slate-400 py-6 sm:py-8">
                 No tasks due today.{' '}
                 <Link href="/tasks/new" className="text-teal-600 hover:text-teal-700">
                   Create a task
                 </Link>
               </p>
             ) : (
-              <div className="space-y-3">
+              <div className="space-y-2 sm:space-y-3">
                 {todaysTasks.slice(0, 5).map((task) => {
                   const isOverdue = task.dueAt && new Date(task.dueAt) < new Date();
                   return (
                     <div
                       key={task.id}
-                      className="flex items-start justify-between gap-3 rounded-lg border border-slate-200 p-3 dark:border-slate-700"
+                      className="flex items-start justify-between gap-2 rounded-lg border border-slate-200 p-2.5 dark:border-slate-700 sm:gap-3 sm:p-3"
                     >
                       <div className="min-w-0 flex-1">
-                        <p className="font-medium text-slate-900 dark:text-white truncate">
+                        <p className="text-sm font-medium text-slate-900 dark:text-white truncate sm:text-base">
                           {task.description}
                         </p>
                         {task.facility && (
-                          <p className="text-sm text-slate-500 dark:text-slate-400">
+                          <p className="text-xs text-slate-500 dark:text-slate-400 truncate sm:text-sm">
                             {task.facility.name}
                           </p>
                         )}
                       </div>
-                      <div className="flex flex-shrink-0 items-center gap-2">
+                      <div className="flex flex-shrink-0 items-center gap-1.5 sm:gap-2">
                         {task.priority && (
-                          <Badge variant={priorityColors[task.priority]}>{task.priority}</Badge>
+                          <Badge variant={priorityColors[task.priority]} className="text-xs">
+                            {task.priority}
+                          </Badge>
                         )}
-                        {isOverdue && <Clock className="h-4 w-4 text-red-500" />}
+                        {isOverdue && <Clock className="h-3.5 w-3.5 text-red-500 sm:h-4 sm:w-4" />}
                       </div>
                     </div>
                   );
                 })}
                 {todaysTasks.length > 5 && (
-                  <p className="text-center text-sm text-slate-500 dark:text-slate-400">
+                  <p className="text-center text-xs text-slate-500 dark:text-slate-400 sm:text-sm">
                     +{todaysTasks.length - 5} more tasks
                   </p>
                 )}
@@ -266,8 +284,8 @@ export default async function DashboardPage() {
 
         {/* Recent Activity */}
         <Card className="lg:col-span-2">
-          <CardHeader>
-            <CardTitle className="flex items-center justify-between">
+          <CardHeader className="p-4 pb-2 sm:p-6 sm:pb-2">
+            <CardTitle className="flex items-center justify-between text-base sm:text-lg">
               Recent Activity
               <Link
                 href="/activities"
@@ -277,28 +295,32 @@ export default async function DashboardPage() {
               </Link>
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-4 pt-2 sm:p-6 sm:pt-2">
             {recentActivities.length === 0 ? (
-              <p className="text-center text-slate-500 dark:text-slate-400 py-8">
+              <p className="text-center text-slate-500 dark:text-slate-400 py-6 sm:py-8">
                 No activities logged yet.{' '}
                 <Link href="/activities/new" className="text-teal-600 hover:text-teal-700">
                   Log your first activity
                 </Link>
               </p>
             ) : (
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {recentActivities.map((activity) => (
-                  <div key={activity.id} className="flex items-start gap-3">
-                    <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300">
-                      {typeIcons[activity.type] || <MoreHorizontal className="h-4 w-4" />}
+                  <div key={activity.id} className="flex items-start gap-2.5 sm:gap-3">
+                    <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300 sm:h-8 sm:w-8">
+                      {typeIcons[activity.type] || (
+                        <MoreHorizontal className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                      )}
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="font-medium text-slate-900 dark:text-white">
+                      <p className="text-sm font-medium text-slate-900 dark:text-white sm:text-base">
                         {activity.subject}
                       </p>
-                      <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
-                        {activity.facility && <span>{activity.facility.name}</span>}
-                        <span>•</span>
+                      <div className="flex flex-wrap items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 sm:gap-2 sm:text-sm">
+                        {activity.facility && (
+                          <span className="truncate">{activity.facility.name}</span>
+                        )}
+                        {activity.facility && <span>•</span>}
                         <span>{new Date(activity.occurredAt).toLocaleDateString()}</span>
                       </div>
                     </div>
